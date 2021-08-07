@@ -15,7 +15,7 @@ const Connection = mysql.createConnection({
     host: '',
     user: 'root',
     password: '',
-    database: '',
+    database: 'chatapp',
     port: 3307
 })
 
