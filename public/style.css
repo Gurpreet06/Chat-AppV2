@@ -388,10 +388,13 @@ ion-icon {
   height: 500px;
 }
 
+.clientList {
+  border-right: 1px solid darkgrey;
+}
+
 .Clients {
   padding: 10px;
   display: flex;
-  border-right: 1px solid darkgrey;
 }
 
 .Clients > input {
@@ -420,4 +423,21 @@ ion-icon {
   width: 60vw;
   align-items: center;
   justify-content: center;
+}
+
+.PersonsGrp {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 0.0625rem solid #dadce0;
+  border-bottom-width: thin;
+  padding: 13px;
+}
+
+.PersonsGrp > h5 {
+  margin-left: 20px;
+}
+
+.PersonsGrp > img {
+  border-radius: 20px;
 }
