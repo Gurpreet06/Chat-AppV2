@@ -377,7 +377,7 @@ ion-icon {
 .socailMsg {
   display: flex;
   background: #fff;
-  max-width: 1150px;
+  max-width: 1300px;
   width: 100%;
   margin: auto;
   margin-top: 40px;
@@ -385,7 +385,7 @@ ion-icon {
   border-radius: 16px;
   box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),
     0 32px 64px -48px rgba(0, 0, 0, 0.5);
-  height: 500px;
+    height: 600px;
 }
 
 .clientList {
@@ -454,8 +454,11 @@ ion-icon {
 
 .usrMsad {
   display: flex;
-  flex-direction: column;
   width: 100%;
+}
+
+.usrMsad1{
+  width: 80%;
 }
 
 .usrChat {
@@ -472,7 +475,7 @@ ion-icon {
   flex-direction: column;
 }
 .showMsg {
-  height: 315px;
+  height: 395px;
   overflow: auto;
 }
 
@@ -526,4 +529,8 @@ ion-icon {
   font-size: 13px;
   color: darkgray;
   margin-left: 20px;
+}
+
+.clientDetails{
+  width: 26%;
 }
