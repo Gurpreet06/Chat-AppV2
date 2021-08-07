@@ -517,3 +517,13 @@ ion-icon {
 .messagesUsr {
   padding: 10px;
 }
+
+.usrInMsg{
+  user-select: none;
+    display: flex;
+}
+.usrInMsg > p {
+  font-size: 13px;
+  color: darkgray;
+  margin-left: 20px;
+}
