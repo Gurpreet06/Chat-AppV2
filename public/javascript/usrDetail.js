@@ -29,7 +29,7 @@ let temp = ` <div class="drawerSide" id="drawerSide">
 </div>
 </div>`
 
-let menu = `   <a href='/index.html'> <div>
+let menu = `   <a href='/mainPage.html'> <div>
 <h4 class="SocialApp">SocialApp</h4>
 </div></a>
 <div class="meetBtns">
