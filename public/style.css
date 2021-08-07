@@ -385,12 +385,12 @@ ion-icon {
   border-radius: 16px;
   box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),
     0 32px 64px -48px rgba(0, 0, 0, 0.5);
+  height: 500px;
 }
 
 .Clients {
+  padding: 10px;
   display: flex;
-  align-items: center;
-  width: 30%;
   border-right: 1px solid darkgrey;
 }
 
@@ -404,8 +404,20 @@ ion-icon {
   outline: none;
 }
 
+.Clients > ion-icon {
+  background: #f9f9f9;
+  border-radius: 16px;
+  box-shadow: 0 0 128px 0 rgb(0 0 0 / 10%), 0 32px 64px -48px rgb(0 0 0 / 50%);
+  padding: 10px;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
 .messages {
+  padding: 10px;
   display: flex;
   flex-direction: column;
+  width: 60vw;
   align-items: center;
+  justify-content: center;
 }
