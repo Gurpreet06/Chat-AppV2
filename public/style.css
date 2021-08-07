@@ -452,23 +452,28 @@ ion-icon {
   border-radius: 20px;
 }
 
-.usrMsad{
+.usrMsad {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.usrChat{
+.usrChat {
   display: flex;
   padding: 20px;
   height: 100px;
   width: 100%;
   justify-content: space-between;
+  border-bottom: 1px solid darkgrey;
 }
 
 .message {
   display: flex;
   flex-direction: column;
+}
+.showMsg {
+  height: 315px;
+  overflow: auto;
 }
 
 .message > b {
@@ -511,5 +516,4 @@ ion-icon {
 
 .messagesUsr {
   padding: 10px;
-  height: 330px;
 }
