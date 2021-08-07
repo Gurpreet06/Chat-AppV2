@@ -35,14 +35,85 @@
 
         </div>
 
-        <div class="messages">
-            <img src="./images/WebTool/bubble-green.da39d35.svg">
+        <!--   <div class="messages">
+                 <img src="./images/WebTool/bubble-green.da39d35.svg">
             <strong>Select a Conversation</strong>
             <p>Try selecting a conversation or searching for someone specific.</p>
+        </div>-->
+        <div class="usrMsad">
+            <div class="usrChat">
+                <div class="usrDetail">
+                    <h5>{{UsrName}}</h5>
+                    <p>Last seen: </p>
+                </div>
+                <div>
+                    <ion-icon name="list-outline"></ion-icon>
+                </div>
+            </div>
+
+            <div class="main__right">
+
+                <div class="messagesUsr" id='meetMsgs'>
+                    <div class="showMsg">
+                        <div class="message">
+                            <b>
+                                <ion-icon name="person-outline" class="signBtn"></ion-icon>
+                                <span style='user-select: none;'>${data.username}</span>
+                            </b>
+                            <span>${data.message}</span>
+                        </div>
+
+                        <div class="message">
+                            <b>
+                                <ion-icon name="person-outline" class="signBtn"></ion-icon>
+                                <span style='user-select: none;'>${data.username}</span>
+                            </b>
+                            <span>${data.message}</span>
+                        </div>
+
+
+                        <div class="message">
+                            <b>
+                                <ion-icon name="person-outline" class="signBtn"></ion-icon>
+                                <span style='user-select: none;'>${data.username}</span>
+                            </b>
+                            <span>${data.message}</span>
+                        </div>
+
+
+                        <div class="message">
+                            <b>
+                                <ion-icon name="person-outline" class="signBtn"></ion-icon>
+                                <span style='user-select: none;'>${data.username}</span>
+                            </b>
+                            <span>${data.message}</span>
+                        </div>
+
+
+                        <div class="message">
+                            <b>
+                                <ion-icon name="person-outline" class="signBtn"></ion-icon>
+                                <span style='user-select: none;'>${data.username}</span>
+                            </b>
+                            <span>${data.message}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="main__message_container">
+                    <input id="chat_message" type="text" autocomplete="off" placeholder="Type message here...">
+                    <div id="send" class="options__button">
+                        <ion-icon name="send-outline" style='margin:0;'></ion-icon>
+                    </div>
+                </div>
+            </div>
         </div>
 
+
+
         <div class="clientDetails">
-            
+
         </div>
 
     </div>
