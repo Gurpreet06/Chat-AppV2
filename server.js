@@ -78,10 +78,28 @@ app.post('/login.html', (req, res) => {
             rst = { status: 'ok' }
             console.log(results)
             await wait(1400)
-            res.redirect('/mainPage.html.html');
+            res.redirect('/mainPage.html');
         }
     })
 })
+
+// Showing user details when user logged in 
+async function answerUsrdata(request, response) {
+    let data = await getPostData(request)
+
+    if (data.type == 'getUsrData') {
+        let getData = `SELECT * FROM users where email ='${data.usrmail}' AND password = '${data.usrid}'`
+
+        Connection.query(getData, (err, rows) => {
+            if (err) {
+                response.json({ status: 'ko', result: 'Database error' })
+                console.log(err)
+            } else {
+                response.json({ status: 'ok', result: rows })
+            }
+        })
+    }
+}
 
 // Upload Servicios
 app.use(upload())

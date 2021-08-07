@@ -308,3 +308,68 @@ textarea {
   margin-left: auto;
   margin-right: auto;
 }
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  align-items: center;
+}
+
+.SocialApp {
+  font-size: 25px;
+  color: black;
+  cursor: pointer;
+}
+
+.meetBtns {
+  display: flex;
+  align-items: center;
+}
+
+.signBtn {
+  margin-right: 25px;
+  cursor: pointer;
+  font-size: 28px;
+}
+
+ion-icon {
+  margin-right: 19px;
+  font-size: 20px;
+}
+
+#UsrInfo {
+  display: none;
+  background-color: rgb(100, 100, 100, 0.75);
+  backdrop-filter: blur(2px) saturate(200%);
+  bottom: 0;
+  filter: blud(3px) saturate(200%);
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10000;
+}
+
+#UsrInfo > .drawerSide {
+  background-color: white;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transform: translate3d(-251px, 0, 0);
+  transition: transform 0.3s ease;
+  width: 630px;
+  display: flex;
+  align-items: center;
+}
+
+#UsrInfo > #drawerSide > div {
+  max-width: 510px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+}
