@@ -88,7 +88,7 @@ async function querySignUp(evt) {
             mail: refFormMail.value,
             contrasenya: refFormPass.value,
             image: '/images/usrProfilePhoto/userDefault.png',
-            id: getRandomId()
+            id: getRandomId() + randomAlphaId(9)
         }
     } else {
         obj = {
@@ -98,7 +98,7 @@ async function querySignUp(evt) {
             mail: refFormMail.value,
             contrasenya: refFormPass.value,
             image: 'images/usrProfilePhoto/' + fotoValue,
-            id: getRandomId()
+            id: getRandomId() + randomAlphaId(9)
         }
     }
 
@@ -195,8 +195,6 @@ async function wait(time) {
         setTimeout(() => { resolve() }, time)
     })
 }
-
-console.log(getRandomId() + randomAlphaId(9))
 
 function getRandomId() {
     let multiplier = 100000
