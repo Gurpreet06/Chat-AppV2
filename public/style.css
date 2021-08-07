@@ -373,3 +373,39 @@ ion-icon {
   margin-right: auto;
   margin-top: 20px;
 }
+
+.socailMsg {
+  display: flex;
+  background: #fff;
+  max-width: 1150px;
+  width: 100%;
+  margin: auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border-radius: 16px;
+  box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),
+    0 32px 64px -48px rgba(0, 0, 0, 0.5);
+}
+
+.Clients {
+  display: flex;
+  align-items: center;
+  width: 30%;
+  border-right: 1px solid darkgrey;
+}
+
+.Clients > input {
+  height: 40px;
+  width: 100%;
+  font-size: 16px;
+  padding: 0 10px;
+  border-radius: 15px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
