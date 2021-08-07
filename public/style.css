@@ -445,6 +445,7 @@ ion-icon {
 
 .PersonsGrp > h5 {
   margin-left: 20px;
+  cursor: pointer;
 }
 
 .PersonsGrp > img {
