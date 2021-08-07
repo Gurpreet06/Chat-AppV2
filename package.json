@@ -1,0 +1,33 @@
+{
+    "name": "servidor",
+    "version": "1.0.0",
+    "description": "Servidor base",
+    "keywords": [],
+    "author": {
+      "name": "Nom de l'autor",
+      "email": "autor@exemple.com"
+    },
+    "homepage": "http://www.exemple.com/",
+    "private": true,
+    "dependencies": {
+      "express": "latest",
+      "express-fileupload": "^1.2.1",
+      "forever": "^3.0.4",
+      "formidable": "^1.2.2",
+      "md5": "^2.3.0",
+      "mysql2": "^2.2.5",
+      "php": "^1.0.1",
+      "supervisor": "^0.12.0"
+    },
+    "bundleDependencies": [],
+    "main": "./server.js",
+    "scripts": {
+      "start": "node ./server.js",
+      "foreverStart": "forever start ./server.js",
+      "foreverList": "forever list",
+      "foreverStop": "forever stop ./server.js",
+      "supervisor": "supervisor --extensions js,html,css --ignore .git,node_modules,jdb.json,jdb.json.tmp --ignore-symlinks node -- ./server.js",
+      "postinstall": ""
+    }
+  }
+  
