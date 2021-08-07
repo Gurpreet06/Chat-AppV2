@@ -392,6 +392,15 @@ ion-icon {
   border-right: 1px solid darkgrey;
 }
 
+.userLists {
+  overflow: auto;
+  height: 420px;
+}
+
+:is(.userLists)::-webkit-scrollbar {
+  width: 0px;
+}
+
 .Clients {
   padding: 10px;
   display: flex;
