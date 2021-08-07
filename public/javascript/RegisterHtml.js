@@ -196,7 +196,7 @@ async function wait(time) {
     })
 }
 
-console.log(getRandomId())
+console.log(getRandomId() + randomAlphaId(9))
 
 function getRandomId() {
     let multiplier = 100000

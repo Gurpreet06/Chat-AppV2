@@ -1,0 +1,310 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+.wrapper {
+  display: flex;
+  background: #fff;
+  max-width: 520px;
+  width: 100%;
+  margin: auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border-radius: 16px;
+  box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.1),
+    0 32px 64px -48px rgba(0, 0, 0, 0.5);
+}
+
+/* Login & Signup Form CSS Start */
+* {
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #f7f7f7;
+}
+
+@media only screen and (max-width: 768px) {
+  .wrapper {
+    flex-wrap: wrap-reverse;
+    max-width: 390px;
+  }
+
+  #side-info {
+    display: none;
+  }
+}
+
+/* Login & Signup Form CSS Start */
+.form {
+  padding: 25px 30px;
+  border: none;
+  width: 100%;
+}
+
+:is(.form)::-webkit-scrollbar {
+  width: 0px;
+}
+
+.form header {
+  font-size: 25px;
+  font-weight: 600;
+  padding-bottom: 10px;
+}
+
+.form form {
+  margin: 20px 0;
+}
+
+.form form .error-text {
+  color: #721c24;
+  padding: 8px 10px;
+  text-align: center;
+  border-radius: 5px;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  margin-bottom: 10px;
+  display: none;
+}
+
+.form form .name-details {
+  display: flex;
+}
+
+.form .name-details .field:first-child {
+  margin-right: 10px;
+}
+
+.form .name-details .field:last-child {
+  margin-left: 10px;
+}
+
+.form form .field {
+  display: flex;
+  margin-bottom: 10px;
+  flex-direction: column;
+  position: relative;
+}
+
+.form form .field label {
+  margin-bottom: 9px;
+}
+
+.form form .input input,
+textarea {
+  height: 40px;
+  width: 100%;
+  font-size: 16px;
+  padding: 0 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.form form .input textarea::placeholder-shown ~ label {
+  padding: 20px;
+  font-size: 16px;
+  top: 50px;
+}
+
+.form form .input > input:valid ~ div {
+  display: none;
+}
+
+.form form .input > input:invalid ~ div {
+  color: #721c24;
+  padding: 8px 10px;
+  text-align: center;
+  border-radius: 5px;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  margin-bottom: 15px;
+  margin-top: 10px;
+}
+
+#confirmPass {
+  display: none;
+  color: #721c24;
+  padding: 8px 10px;
+  text-align: center;
+  border-radius: 5px;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  margin-bottom: 15px;
+  margin-top: 13px;
+}
+
+.form form .field input {
+  outline: none;
+}
+
+.form form .image input {
+  font-size: 17px;
+}
+
+.form .link {
+  text-align: center;
+  margin: 10px 0;
+  font-size: 17px;
+}
+
+.form .link a {
+  color: #333;
+}
+
+.form .link a:hover {
+  text-decoration: underline;
+}
+
+.form form .button input {
+  height: 45px;
+  border: none;
+  color: #fff;
+  font-size: 17px;
+  background: #ba54eb;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 13px;
+}
+
+.form form .button input:disabled {
+  color: #eee;
+  background-color: #aaa;
+  font-size: 17px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 13px;
+  cursor: not-allowed;
+}
+
+.elm80 {
+  color: green;
+  font-size: 1em;
+  height: max-content;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  text-align: center;
+}
+
+.elm82 {
+  justify-content: center;
+  padding: 16px 0 0 0;
+  box-sizing: border-box;
+  display: flex;
+  margin: 0;
+}
+
+.elm84 {
+  color: red;
+  font-size: 1em;
+  font-weight: 600;
+  height: max-content;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.waitSpinner {
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
+}
+
+.waitSpinner svg {
+  animation: spinnerRotate 1.5s linear infinite;
+  height: 100%;
+  width: 100%;
+}
+
+.waitSpinner circle {
+  animation: spinnerDash 1.5s ease-in-out infinite 0s,
+    spinnerColor 6s ease-in-out infinite -0.75s;
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  stroke-linecap: round;
+  fill: none;
+  stroke-width: 5;
+}
+
+@keyframes spinnerRotate {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spinnerDash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -45;
+  }
+
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124;
+  }
+}
+
+@keyframes spinnerColor {
+  100%,
+  0% {
+    stroke: #4285f4;
+  }
+
+  25% {
+    stroke: #de3e35;
+  }
+
+  50% {
+    stroke: #f7c223;
+  }
+
+  75% {
+    stroke: #1da760;
+  }
+}
+
+.defDiv {
+  height: max-content;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.defDivAutocenter {
+  padding: 0 16px;
+  box-sizing: border-box;
+  height: max-content;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.elmBoxButton {
+  height: 48px;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.elmBoxError {
+  display: none;
+  height: 48px;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.elmBoxSpinner {
+  display: none;
+  box-sizing: border-box;
+  margin: 0;
+  width: 21%;
+  margin-left: auto;
+  margin-right: auto;
+}
