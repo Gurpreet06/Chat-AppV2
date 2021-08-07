@@ -44,8 +44,9 @@ async function answerQuery(request, response) {
     if (data.type == 'SaveUserData') {
         rst = { status: 'ok' }
         let dataPs = md5(data.contrasenya)
-        dataPs = md5(dataPs)
-        let insrtData = `INSERT INTO users(unique_id, firstname, Lastname, email, password, photo) values('${data.id}', '${data.nom}', '${data.cognom}', '${data.mail}',  '${dataPs}', '${data.image}')`
+        let encDt = md5(dataPs)
+        let FinalDt = md5(encDt)
+        let insrtData = `INSERT INTO users(unique_id, firstname, Lastname, email, password, photo) values('${data.id}', '${data.nom}', '${data.cognom}', '${data.mail}',  '${FinalDt}', '${data.image}')`
         Connection.query(insrtData, (err, rows) => {
             if (err) throw err
         })
@@ -57,6 +58,30 @@ async function answerQuery(request, response) {
 
     response.json(rst)
 }
+
+// Authentication section
+app.use(express.urlencoded());
+app.use(express.json());
+app.post('/login.html', (req, res) => {
+    let username = req.body.user;
+    let usrpass = md5(req.body.emaile);
+    usrpass = md5(usrpass)
+    usrpass = md5(usrpass)
+
+    Connection.query(`SELECT * FROM users WHERE email = '${username}' AND password = '${usrpass}'`, async (error, results, fields) => {
+        if (results.length == 0) {
+            wait(1000)
+            console.log('Incorrect Username or Password!')
+            rst = { status: 'ko' }
+        } else {
+            res.setHeader('Set-Cookie', [`id=${usrpass}`, `identiy=${username}`]);
+            rst = { status: 'ok' }
+            console.log(results)
+            await wait(1400)
+            res.redirect('/mainPage.html.html');
+        }
+    })
+})
 
 // Upload Servicios
 app.use(upload())
