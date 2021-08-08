@@ -33,7 +33,7 @@ let menu = `   <a href='/mainPage.html'> <div>
 <h4 class="SocialApp">SocialApp</h4>
 </div></a>
 <div class="meetBtns">
-    <ion-icon name="person-outline"  class="signBtn" onclick="setDrawer('UsrInfo', true)"></ion-icon>
+    <ion-icon name="person-outline"  class="signBtn" style='cursor: pointer;' onclick="setDrawer('UsrInfo', true)"></ion-icon>
     <ion-icon name="log-in-outline" style='font-size: 28px;cursor: pointer;' onclick='logOut()'></ion-icon>
 </div>`
 let MenuHome = document.getElementById('MenuHome')
@@ -65,16 +65,21 @@ async function loadData() {
         let rst = serverData.result
         for (let cnt = 0; cnt < rst.length; cnt = cnt + 1) {
             item = rst[cnt]
-            html = html + template
-                .replaceAll('{{name}}', item.firstname)
-                .replaceAll('{{lastName}}', item.Lastname)
-                .replaceAll('{{image}}', item.photo)
-                .replaceAll('{{email}}', item.email)
-            document.cookie = `usrId=${item.unique_id}`
-            document.cookie = `usrName=${item.firstname + ' ' + item.Lastname}`
+            if (item.email === getCookie('identiy')) {
+                html = html + template
+                    .replaceAll('{{name}}', item.firstname)
+                    .replaceAll('{{lastName}}', item.Lastname)
+                    .replaceAll('{{image}}', item.photo)
+                    .replaceAll('{{email}}', item.email)
+                document.cookie = `usrId=${item.unique_id}`
+                document.cookie = `usrName=${item.firstname + ' ' + item.Lastname}`
 
-            //Asignar datos
-            usrData.innerHTML = html
+                if (item.unique_id === getCookie('usrId') && item.firstname + ' ' + item.Lastname === getCookie('usrName')) {
+                    //Asignar datos
+                    usrData.innerHTML = html
+                }
+            }
+
         }
     } else {
         console.log(serverData)
