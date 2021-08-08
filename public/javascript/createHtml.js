@@ -69,7 +69,6 @@ let nousrSlec = `
 </div>
 `
 
-
 let chatHtml = `        <div class="usrChat">
 <div class="usrDetail">
     <h5 style='font-size: 28px;'>{{UsrName}}</h5>
@@ -87,9 +86,11 @@ let chatHtml = `        <div class="usrChat">
                 <div class="message">
                     <b>
                         <ion-icon name="person-outline" class="usrPhoto"></ion-icon>
-                        <span class="usrInMsg"> <p>Time:  </p> </span>
+                        <h5 style='color: black;'>{{UsrName}}</h5>
+                        <span class="usrInMsg"> <p>Time:  </p> {{14 Jun}} </span>
                     </b>
-                    <span></span>
+                    <span>        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis error veniam cum nostrum! Animi corporis ex
+                    aliquid. Quam natus provident odit animi quisquam rem blanditiis a voluptatum, commodi consequatur laborum.</span>
                 </div>
 
             </div>
