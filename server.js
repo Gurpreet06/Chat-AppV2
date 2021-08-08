@@ -13,9 +13,10 @@ let publicFolder = './public'
 // connect to mysql dataBase
 const Connection = mysql.createConnection({
     host: '',
-    user: '',
+    user: 'root',
     password: '',
     database: 'chatapp',
+    port: 3307
 })
 
 // Check if  connection  was succeeded
@@ -104,13 +105,13 @@ async function answerUsrdata(request, response) {
 app.use(upload())
 
 // Upload foto while registering
-app.post('/index.html', function (req, res) {
+app.post('/register.html', function (req, res) {
     console.log(req.files); // the uploaded file object
     let sampleFile; // Input Name
     sampleFile = req.files.sampleFile;
     let uploadPath = __dirname + '/public/images/usrProfilePhoto/' + sampleFile.name;
     sampleFile.mv(uploadPath)
-    res.redirect('/index.html');
+    res.redirect('/register.html');
 });
 
 
