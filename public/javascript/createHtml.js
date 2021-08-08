@@ -32,7 +32,7 @@ async function searchUsers(val) {
         let rst = serverData.result
         for (cnt = 0; cnt < rst.length; cnt = cnt + 1) {
             let item = rst[cnt]
-            if (item.firstname.indexOf(val) !== -1) {
+            if (item.firstname.indexOf(val) !== -1 || item.Lastname.indexOf(val) !== -1) {
                 html = html + template
                     .replaceAll(/{{name}}/g, item.firstname + ' ' + item.Lastname)
                     .replaceAll(/{{img}}/g, item.photo)
