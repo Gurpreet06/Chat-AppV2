@@ -21,9 +21,14 @@ var date = today.getDate();
 
 let seachrBarTemp = ` <div class="searchInfo">
     <div class='searchRst'>
-    <img src='{{img}}' width="11%">
+         <img src='{{img}}' width="11%">
         <h5 class="usrName" onclick='chatWithUser(this.nextElementSibling.innerHTML, this.innerHTML)'>{{name}}</h5>
         <p style='display:none;'>{{caseId}}</p>
+    </div>
+    <div>
+        <button class='sendMsgUsr' onclick='chatWithUser(this.nextElementSibling.innerHTML, this.nextElementSibling.nextElementSibling.innerHTML)'>Send Message</button>
+        <p style='display:none;'>{{caseId}}</p>
+        <p style='display:none;'>{{name}}</p>
     </div>
 </div>`
 
@@ -105,7 +110,7 @@ let chatHtml = `        <div class="usrChat">
         <div class="main__message_container">
             <input id="chat_message" type="text" autocomplete="off" placeholder="Type message here...">
             <div id="sendMsg" class="options__button">
-                <ion-icon name="send-outline" style='margin:0;' onclick="sendMessages(event)"></ion-icon>
+                <ion-icon name="send-outline" style='margin:0; cursor:pointer;' onclick="sendMessages(event)"></ion-icon>
             </div>
         </div>
     </div>

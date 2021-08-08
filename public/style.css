@@ -568,6 +568,8 @@ ion-icon {
 }
 
 .searchInfo {
+  display: flex;
+  align-items: center;
   padding: 9px;
   border-bottom: 1px solid #e6e6e6;
 }
@@ -580,4 +582,13 @@ ion-icon {
 .searchRst > h5 {
   cursor: pointer;
   margin-left: 10px;
+}
+
+.sendMsgUsr {
+  border-radius: 6px;
+  height: 40px;
+  width: 125px;
+  background-color: #1d9af2;
+  border: none;
+  cursor: pointer;
 }
