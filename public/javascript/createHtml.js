@@ -1,6 +1,23 @@
 let thisURL = document.URL
 let thisIndex = thisURL.lastIndexOf('userId=')
 let thisPosId = thisURL.substring(thisIndex + 7)
+var today = new Date();
+var month = new Array();
+month[0] = "January";
+month[1] = "February";
+month[2] = "March";
+month[3] = "April";
+month[4] = "May";
+month[5] = "June";
+month[6] = "July";
+month[7] = "August";
+month[8] = "September";
+month[9] = "October";
+month[10] = "November";
+month[11] = "December";
+var n = month[today.getMonth()];
+var date = today.getDate();
+
 
 let seachrBarTemp = ` <div class="searchInfo">
     <div class='searchRst'>
@@ -81,19 +98,7 @@ let chatHtml = `        <div class="usrChat">
 <div class="usrMsad1">
     <div class="main__right">
         <div class="messagesUsr" id='meetMsgs'>
-            <div class="showMsg">
-            
-                <div class="message">
-                    <b>
-                        <img width="5%" style='margin-right: 15px;' src="{{imgusr}}">
-                        <h5 style='color: black;'>{{UsrName}}</h5>
-                        <span class="usrInMsg"> <p>Time:  </p> {{14 Jun}} </span>
-                    </b>
-                    <span>        Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis error veniam cum nostrum! Animi corporis ex
-                    aliquid. Quam natus provident odit animi quisquam rem blanditiis a voluptatum, commodi consequatur laborum.</span>
-                </div>
-
-            </div>
+            <div class="showMsg" id='appendChat'> </div>
         </div>
     </div>
     <div>
@@ -145,6 +150,7 @@ async function createMsgHtml() {
                 .replaceAll(/{{imgusr}}/g, serverData.result[0].photo)
 
             userChatIndex.innerHTML = html
+            getUserChats()
         }
 
 
@@ -158,6 +164,7 @@ async function sendMessages(evt) {
     evt.preventDefault(); // Stop page to reload onclick in sumbit button
     let chatMessage = document.getElementById('chat_message')
     let chatUsrName = document.getElementById('charUsrName')
+    let currentUserImg = document.getElementById('currentUserImg')
 
     let obj = {
         type: 'sendMessages',
@@ -166,17 +173,20 @@ async function sendMessages(evt) {
         currentUserName: getCookie('usrName'),
         chatUserId: thisPosId,
         chatUserName: chatUsrName.innerHTML,
-        message: chatMessage.value
+        message: chatMessage.value,
+        time: date + ' ' + n,
+        photo: currentUserImg.src
     }
 
     try {
-        serverData = await queryServer('/query', obj)
+        serverData = await queryServer('/queryusr', obj)
     } catch (err) {
         console.error(err)
     }
 
     if (serverData.status == 'ok') {
-        console.log(serverData.result)
+        chatMessage.value = ''
+        getUserChats()
     } else {
         console.log(serverData)
     }
@@ -185,27 +195,37 @@ async function sendMessages(evt) {
 
 
 async function getUserChats() {
+    let appendChat = document.getElementById('appendChat')
 
     let obj = {
         type: 'getUserChats',
-        chatUserId: nextUserId.innerhtml,
+        chatUserId: thisPosId,
         currentUserId: getCookie('usrId'),
     }
 
     try {
-        serverData = await queryServer('/query', obj)
+        serverData = await queryServer('/queryusr', obj)
     } catch (err) {
         console.error(err)
     }
 
     if (serverData.status == 'ok') {
-        console.log(serverData.result)
+        let rst = serverData.result
+        for (let cnt = 0; cnt < rst.length; cnt = cnt + 1) {
+            let item = rst[cnt]
+            appendChat.innerHTML += `  <div class="message">
+            <b>
+                <img width="5%" style='margin-right: 15px;' src="${item.Photo}">
+                <h5 style='color: black;'>${item.incoming_user_name}</h5>
+                <span class="usrInMsg"> <p>Time:  </p> ${item.Time} </span>
+            </b>
+            <span>${item.msg}</span>
+        </div>`
+        }
     } else {
         console.log(serverData)
     }
 }
-
-
 
 
 /**

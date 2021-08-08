@@ -22,7 +22,7 @@ let temp = ` <div class="drawerSide" id="drawerSide">
             </div>
             <div style='margin-top:25px;'>
                 <p>Profile Photo: </p>
-                <img src="{{image}}" width="50%">
+                <img src="{{image}}" width="50%" id='currentUserImg'>
             </div>
         </div>
     </section>
