@@ -1,3 +1,12 @@
+async function getConnectedUsers() {
+    let obj = {
+        type: 'getConnectedUsers',
+        usrid: getCookie('usrId'),
+        usrmail: getCookie('identiy')
+    }
+}
+
+
 async function sendMessages(evt) {
     evt.preventDefault(); // Stop page to reload onclick in sumbit button
     let chatMessage = document.getElementById('chat_message')
