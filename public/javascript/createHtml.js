@@ -71,7 +71,7 @@ let nousrSlec = `
 
 let chatHtml = `        <div class="usrChat">
 <div class="usrDetail">
-    <h5 style='font-size: 28px;'>{{UsrName}}</h5>
+    <h5 style='font-size: 28px;' id='charUsrName'>{{UsrName}}</h5>
 </div>
 <div>
     <ion-icon name="list-outline"></ion-icon>
@@ -85,7 +85,7 @@ let chatHtml = `        <div class="usrChat">
             
                 <div class="message">
                     <b>
-                        <ion-icon name="person-outline" class="usrPhoto"></ion-icon>
+                        <img width="5%" style='margin-right: 15px;' src="{{imgusr}}">
                         <h5 style='color: black;'>{{UsrName}}</h5>
                         <span class="usrInMsg"> <p>Time:  </p> {{14 Jun}} </span>
                     </b>
@@ -112,8 +112,7 @@ let chatHtml = `        <div class="usrChat">
         <h4>About</h4>
     </div>
     <div class="clientDetails1">
-        <img width="80%"
-            src="{{imgusr}}">
+        <img width="80%" src="{{imgusr}}">
         <h5>{{UsrName}}</h5>
         <p>{{UserEmail}}</p>
     </div>
@@ -137,8 +136,6 @@ async function createMsgHtml() {
 
     let temp = chatHtml
     if (serverData.status == 'ok') {
-        console.log(serverData.result)
-
         if (serverData.result.length === 0) {
             userChatIndex.innerHTML = nousrSlec
         } else if (serverData.result[0].unique_id === thisPosId) {
@@ -155,22 +152,19 @@ async function createMsgHtml() {
         console.log(serverData)
     }
 
-
-
 }
 
 async function sendMessages(evt) {
     evt.preventDefault(); // Stop page to reload onclick in sumbit button
     let chatMessage = document.getElementById('chat_message')
-    let chatUsrId = document.getElementById('')
-    let chatUsrName = document.getElementById('')
+    let chatUsrName = document.getElementById('charUsrName')
 
     let obj = {
         type: 'sendMessages',
         msgId: getRandomId() + randomAlphaId(6),
         currentUserId: getCookie('usrId'),
         currentUserName: getCookie('usrName'),
-        chatUserId: chatUsrId.innerHTML,
+        chatUserId: thisPosId,
         chatUserName: chatUsrName.innerHTML,
         message: chatMessage.value
     }
