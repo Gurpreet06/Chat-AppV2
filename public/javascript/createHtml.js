@@ -158,7 +158,6 @@ async function createMsgHtml() {
             getUserChats()
         }
 
-
     } else {
         console.log(serverData)
     }
@@ -191,7 +190,6 @@ async function sendMessages(evt) {
 
     if (serverData.status == 'ok') {
         chatMessage.value = ''
-        getUserChats()
     } else {
         console.log(serverData)
     }
