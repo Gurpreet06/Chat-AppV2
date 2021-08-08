@@ -1,8 +1,51 @@
-async function getConnectedUsers() {
+
+let seachrBarTemp = ` <div class="searchInfo">
+    <div class='searchRst'>
+    <img src='{{img}}' width="11%">
+        <h5 class="usrName">{{name}}</h5>
+    </div>
+</div>`
+
+async function searchUsers(val) {
+    let SearchUsersVal = document.getElementById('Searchwrapper')
+    let schWra = document.getElementById('SearchUsersVal')
+    let usrChatList = document.getElementById('usrChatList')
+    let html = ''
+
     let obj = {
-        type: 'getConnectedUsers',
-        usrid: getCookie('usrId'),
-        usrmail: getCookie('identiy')
+        type: 'searchUsers',
+    }
+
+    try {
+        serverData = await queryServer('/queryusr', obj)
+    } catch (err) {
+        console.error(err)
+    }
+
+    let template = seachrBarTemp
+
+    if (serverData.status == 'ok') {
+        let rst = serverData.result
+        for (cnt = 0; cnt < rst.length; cnt = cnt + 1) {
+            let item = rst[cnt]
+            if (item.firstname.indexOf(val) !== -1) {
+                html = html + template
+                    .replaceAll(/{{name}}/g, item.firstname + ' ' + item.Lastname)
+                    .replaceAll(/{{img}}/g, item.photo)
+            } else if(item.firstname.indexOf(val) === -1) {
+                SearchUsersVal.innerHTML = `<p class='noFileType'>No User Found</p>`
+            }
+        }
+
+        Searchwrapper.style.display = 'block'
+        usrChatList.style.display = 'none'
+        Searchwrapper.innerHTML = html
+        if (val === '' || schWra.value === '') {
+            Searchwrapper.style.display = 'none'
+            usrChatList.style.display = 'block'
+        }
+    } else {
+        console.log(serverData)
     }
 }
 
@@ -145,3 +188,5 @@ function getCookie(name) {
     }
     return null;
 }
+
+window.addEventListener('load', () => { searchUsers() })

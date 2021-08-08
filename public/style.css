@@ -402,6 +402,7 @@ ion-icon {
 .Clients {
   padding: 10px;
   display: flex;
+  flex-direction: column;
 }
 
 .Clients > input {
@@ -566,4 +567,19 @@ ion-icon {
   margin-top: 17px;
   font-size: 13px;
   color: darkgrey;
+}
+
+.searchInfo {
+  padding: 9px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.searchRst {
+  display: flex;
+  align-items: center;
+  margin: 13px;
+}
+.searchRst > h5 {
+  cursor: pointer;
+  margin-left: 10px;
 }
