@@ -440,6 +440,7 @@ ion-icon {
   border-bottom: 0.0625rem solid #dadce0;
   border-bottom-width: thin;
   padding: 13px;
+  max-width: 300px;
 }
 
 .PersonsGrp > h5 {
@@ -591,4 +592,14 @@ ion-icon {
   background-color: #1d9af2;
   border: none;
   cursor: pointer;
+}
+
+.sendChatMsg {
+  margin: 0;
+  cursor: pointer;
+  background: #174ea6;
+  padding: 11px;
+  margin-left: 18px;
+  color: white;
+  height: 24px;
 }

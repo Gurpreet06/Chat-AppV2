@@ -150,6 +150,19 @@ async function answerUsrdata(request, response) {
             }
         })
     }
+
+    else if (data.type === 'getConnectedUsers') {
+        let getData = `SELECT * FROM messages where incoming_msg_id ='${data.currentUserId}' AND incoming_user_name = '${data.currentUserName}' OR  outgoing_msg_id ='${data.currentUserId}' AND outgoing_msg_id = '${data.currentUserName}'`
+
+        Connection.query(getData, (err, rows) => {
+            if (err) {
+                response.json({ status: 'ko', result: 'Database error' })
+                console.log(err)
+            } else {
+                response.json({ status: 'ok', result: rows })
+            }
+        })
+    }
 }
 
 // Upload Servicios

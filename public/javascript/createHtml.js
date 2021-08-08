@@ -110,7 +110,7 @@ let chatHtml = `        <div class="usrChat">
         <div class="main__message_container">
             <input id="chat_message" type="text" autocomplete="off" placeholder="Type message here...">
             <div id="sendMsg" class="options__button">
-                <ion-icon name="send-outline" style='margin:0; cursor:pointer;' onclick="sendMessages(event)"></ion-icon>
+                <ion-icon name="send-outline" class='sendChatMsg' onclick="sendMessages(event)"></ion-icon>
             </div>
         </div>
     </div>
@@ -232,6 +232,28 @@ async function getUserChats() {
     }
 }
 
+async function getConnectedUsers() {
+    let usrChatList = document.getElementById('usrChatList')
+
+    let obj = {
+        type: 'getConnectedUsers',
+        currentUserId: getCookie('usrId'),
+        currentUserName: getCookie('usrName')
+    }
+
+    try {
+        serverData = await queryServer('/queryusr', obj)
+    } catch (err) {
+        console.error(err)
+    }
+
+    if (serverData.status == 'ok') {
+        console.log(serverData)
+    } else {
+        console.log(serverData)
+    }
+}
+
 
 /**
  * Hides an element
@@ -317,4 +339,4 @@ function getCookie(name) {
     return null;
 }
 
-window.addEventListener('load', () => { searchUsers(), createMsgHtml() })
+window.addEventListener('load', () => { searchUsers(), createMsgHtml(), getConnectedUsers() })
