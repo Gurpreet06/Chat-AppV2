@@ -1,13 +1,18 @@
-async function getConnectedUsers(evt) {
+async function sendMessages(evt) {
     evt.preventDefault(); // Stop page to reload onclick in sumbit button
+    let chatMessage = document.getElementById('chat_message')
+    let chatUsrId = document.getElementById('')
+    let chatUsrName = document.getElementById('')
 
     let obj = {
-        type: 'getConnectedUsers',
-        currentUserName: getCookie('usrName'),
-        currentUserEmail: getCookie('identiy'),
+        type: 'sendMessages',
+        msgId: getRandomId() + randomAlphaId(6),
         currentUserId: getCookie('usrId'),
+        currentUserName: getCookie('usrName'),
+        chatUserId: chatUsrId.innerHTML,
+        chatUserName: chatUsrName.innerHTML,
+        message: chatMessage.value
     }
-
 
     try {
         serverData = await queryServer('/query', obj)
@@ -15,11 +20,31 @@ async function getConnectedUsers(evt) {
         console.error(err)
     }
 
+    if (serverData.status == 'ok') {
+        console.log(serverData.result)
+    } else {
+        console.log(serverData)
+    }
 
-    await hideElement('boxSpinner')
+}
+
+
+async function getUserChats() {
+
+    let obj = {
+        type: 'getUserChats',
+        chatUserId: nextUserId.innerhtml,
+        currentUserId: getCookie('usrId'),
+    }
+
+    try {
+        serverData = await queryServer('/query', obj)
+    } catch (err) {
+        console.error(err)
+    }
 
     if (serverData.status == 'ok') {
-        console.log('ok')
+        console.log(serverData.result)
     } else {
         console.log(serverData)
     }
