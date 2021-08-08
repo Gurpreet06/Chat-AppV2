@@ -22,7 +22,8 @@
     <div class="socailMsg">
         <div class="clientList">
             <div class="Clients">
-                <input type="text" placeholder="Search.." name="search" id="SearchUsersVal" onkeyup="searchUsers(this.value)">
+                <input type="text" placeholder="Search.." name="search" id="SearchUsersVal"
+                    onkeyup="searchUsers(this.value)">
                 <div class="Searchwrapper" id='Searchwrapper' style="display: none;"> </div>
             </div>
 
@@ -49,62 +50,8 @@
 
         </div>
 
-        <!--   <div class="messages">
-                 <img src="./images/WebTool/bubble-green.da39d35.svg">
-            <strong>Select a Conversation</strong>
-            <p>Try selecting a conversation or searching for someone specific.</p>
-        </div>-->
-        <div style="width: 100%;">
-            <div class="usrChat">
-                <div class="usrDetail">
-                    <h5>{{UsrName}}</h5>
-                    <p>Last seen: </p>
-                </div>
-                <div>
-                    <ion-icon name="list-outline"></ion-icon>
-                </div>
-            </div>
-            <div class="usrMsad">
-                <div class="usrMsad1">
-                    <div class="main__right">
-                        <div class="messagesUsr" id='meetMsgs'>
-                            <div class="showMsg">
-                            
-                                <div class="message">
-                                    <b>
-                                        <ion-icon name="person-outline" class="usrPhoto"></ion-icon>
-                                        <span class="usrInMsg">${data.username} <p>Time: ${data.Time} </p> </span>
-                                    </b>
-                                    <span>${data.message}</span>
-                                </div>
 
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="main__message_container">
-                            <input id="chat_message" type="text" autocomplete="off" placeholder="Type message here...">
-                            <div id="sendMsg" class="options__button">
-                                <ion-icon name="send-outline" style='margin:0;' onclick="sendMessages(event)"></ion-icon>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="clientDetails">
-                    <div>
-                        <h4>About</h4>
-                    </div>
-                    <div class="clientDetails1">
-                        <img width="80%"
-                            src="https://lh3.googleusercontent.com/-XdUIqdMkCWA/AAAAAAAAAAI/AAAAAAAAAAA/4252rscbv5M/s40-c-fbw=1/photo.jpg">
-                        <h5>{{UsrName}}</h5>
-                        <p>{{User Email}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <div style="width: 100%;" id="userChatIndex"> </div>
     </div>
 </body>
 

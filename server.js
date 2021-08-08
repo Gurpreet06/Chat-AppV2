@@ -137,6 +137,19 @@ async function answerUsrdata(request, response) {
             }
         })
     }
+
+    else if (data.type === 'userChat') {
+        let getData = `SELECT * FROM users where unique_id = '${data.chatUserId}'`
+
+        Connection.query(getData, (err, rows) => {
+            if (err) {
+                response.json({ status: 'ko', result: 'Database error' })
+                console.log(err)
+            } else {
+                response.json({ status: 'ok', result: rows })
+            }
+        })
+    }
 }
 
 // Upload Servicios

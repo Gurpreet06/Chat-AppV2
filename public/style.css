@@ -428,9 +428,9 @@ ion-icon {
   padding: 10px;
   display: flex;
   flex-direction: column;
-  width: 60vw;
   align-items: center;
   justify-content: center;
+  height: 500px;
 }
 
 .PersonsGrp {
@@ -464,7 +464,6 @@ ion-icon {
 .usrChat {
   display: flex;
   padding: 20px;
-  height: 100px;
   width: 100%;
   justify-content: space-between;
   border-bottom: 1px solid #e7e7e7;

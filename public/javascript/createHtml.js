@@ -1,8 +1,12 @@
+let thisURL = document.URL
+let thisIndex = thisURL.lastIndexOf('userId=')
+let thisPosId = thisURL.substring(thisIndex + 7)
 
 let seachrBarTemp = ` <div class="searchInfo">
     <div class='searchRst'>
     <img src='{{img}}' width="11%">
-        <h5 class="usrName">{{name}}</h5>
+        <h5 class="usrName" onclick='chatWithUser(this.nextElementSibling.innerHTML, this.innerHTML)'>{{name}}</h5>
+        <p style='display:none;'>{{caseId}}</p>
     </div>
 </div>`
 
@@ -32,7 +36,8 @@ async function searchUsers(val) {
                 html = html + template
                     .replaceAll(/{{name}}/g, item.firstname + ' ' + item.Lastname)
                     .replaceAll(/{{img}}/g, item.photo)
-            } else if(item.firstname.indexOf(val) === -1) {
+                    .replaceAll(/{{caseId}}/g, item.unique_id)
+            } else if (item.firstname.indexOf(val) === -1) {
                 SearchUsersVal.innerHTML = `<p class='noFileType'>No User Found</p>`
             }
         }
@@ -49,6 +54,109 @@ async function searchUsers(val) {
     }
 }
 
+async function chatWithUser(userID, userName) {
+    var x = document.URL
+    var url = window.location.toString();
+    window.location = url.replace(x, `?userName=${userName}&userId=${userID}`)
+}
+
+
+let nousrSlec = `
+<div class="messages">
+<img src="./images/WebTool/bubble-green.da39d35.svg">
+<strong>Select a Conversation</strong>
+<p>Try selecting a conversation or searching for someone specific.</p>
+</div>
+`
+
+
+let chatHtml = `        <div class="usrChat">
+<div class="usrDetail">
+    <h5 style='font-size: 28px;'>{{UsrName}}</h5>
+</div>
+<div>
+    <ion-icon name="list-outline"></ion-icon>
+</div>
+</div>
+<div class="usrMsad">
+<div class="usrMsad1">
+    <div class="main__right">
+        <div class="messagesUsr" id='meetMsgs'>
+            <div class="showMsg">
+            
+                <div class="message">
+                    <b>
+                        <ion-icon name="person-outline" class="usrPhoto"></ion-icon>
+                        <span class="usrInMsg"> <p>Time:  </p> </span>
+                    </b>
+                    <span></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="main__message_container">
+            <input id="chat_message" type="text" autocomplete="off" placeholder="Type message here...">
+            <div id="sendMsg" class="options__button">
+                <ion-icon name="send-outline" style='margin:0;' onclick="sendMessages(event)"></ion-icon>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="clientDetails">
+    <div>
+        <h4>About</h4>
+    </div>
+    <div class="clientDetails1">
+        <img width="80%"
+            src="{{imgusr}}">
+        <h5>{{UsrName}}</h5>
+        <p>{{UserEmail}}</p>
+    </div>
+</div>
+</div>`
+
+async function createMsgHtml() {
+    let userChatIndex = document.getElementById('userChatIndex')
+    let html = ''
+
+    let obj = {
+        type: 'userChat',
+        chatUserId: thisPosId
+    }
+
+    try {
+        serverData = await queryServer('/queryusr', obj)
+    } catch (err) {
+        console.error(err)
+    }
+
+    let temp = chatHtml
+    if (serverData.status == 'ok') {
+        console.log(serverData.result)
+
+        if (serverData.result.length === 0) {
+            userChatIndex.innerHTML = nousrSlec
+        } else if (serverData.result[0].unique_id === thisPosId) {
+            html = html + temp
+                .replaceAll(/{{UsrName}}/g, serverData.result[0].firstname + ' ' + serverData.result[0].Lastname)
+                .replaceAll(/{{UserEmail}}/g, serverData.result[0].email)
+                .replaceAll(/{{imgusr}}/g, serverData.result[0].photo)
+
+            userChatIndex.innerHTML = html
+        }
+
+
+    } else {
+        console.log(serverData)
+    }
+
+
+
+}
 
 async function sendMessages(evt) {
     evt.preventDefault(); // Stop page to reload onclick in sumbit button
@@ -189,4 +297,4 @@ function getCookie(name) {
     return null;
 }
 
-window.addEventListener('load', () => { searchUsers() })
+window.addEventListener('load', () => { searchUsers(), createMsgHtml() })
