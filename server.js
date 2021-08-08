@@ -3,6 +3,7 @@ const md5 = require('md5')
 const fs = require('fs')
 const upload = require('express-fileupload')
 const mysql = require('mysql2')
+const SocketIO = require('socket.io')
 
 let app = express()
 let portHTTP = 8000
@@ -13,10 +14,9 @@ let publicFolder = './public'
 // connect to mysql dataBase
 const Connection = mysql.createConnection({
     host: '',
-    user: 'root',
+    user: '',
     password: '',
     database: 'chatapp',
-    port: 3307
 })
 
 // Check if  connection  was succeeded
@@ -33,6 +33,15 @@ async function main() {
     app.use(express.static(publicFolder))
 
     refHTTP = app.listen(portHTTP, () => { console.log(`\nNavigate to: http://localhost:${portHTTP} \n`) })
+
+    const io = SocketIO(refHTTP)
+
+    // Web Sockets
+    io.on('connection', (socket) => {
+        socket.on('chat:message', (data) => {
+            io.sockets.emit('chat:message', data)
+        })
+    })
 }
 
 

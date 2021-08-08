@@ -194,6 +194,19 @@ async function sendMessages(evt) {
         console.log(serverData)
     }
 
+
+    sendBtn.addEventListener('click', () => {
+        if (chatMesageId.value !== '') {
+            socket.emit('chat:message', {
+                message: chatMesageId.value,
+                username: getCookie('usrName')
+            })
+            chatMesageId.value = ''
+        }
+    })
+
+
+
 }
 
 
