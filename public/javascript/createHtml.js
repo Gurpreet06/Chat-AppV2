@@ -36,6 +36,7 @@ async function searchUsers(val) {
     let SearchUsersVal = document.getElementById('Searchwrapper')
     let schWra = document.getElementById('SearchUsersVal')
     let usrChatList = document.getElementById('usrChatList')
+    let closeSearchBar = document.getElementById('closeSearchBar')
     let html = ''
 
     let obj = {
@@ -66,6 +67,15 @@ async function searchUsers(val) {
 
         Searchwrapper.style.display = 'block'
         usrChatList.style.display = 'none'
+        if (val !== '' && schWra.value !== '') {
+            closeSearchBar.style.display = 'block'
+        }
+        closeSearchBar.addEventListener('click', () => {
+            schWra.value = ''
+            Searchwrapper.style.display = 'none'
+            usrChatList.style.display = 'block'
+            closeSearchBar.style.display = 'none'
+        })
         Searchwrapper.innerHTML = html
         if (val === '' || schWra.value === '') {
             Searchwrapper.style.display = 'none'
