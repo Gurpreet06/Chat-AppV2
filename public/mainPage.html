@@ -13,6 +13,7 @@
     <script src="./javascript/usrDetail.js" defer></script>
     <script src="./javascript/setDrawer.js" defer></script>
     <script src="./javascript/createHtml.js" defer></script>
+    <script src="/socket.io/socket.io.js"></script>
 </head>
 
 <body>
@@ -37,23 +38,7 @@
                         <h5 id="myChats">My Chats</h5>
                     </div>
                 </div>
-                <div>
-                    <div class="PersonsGrp">
-                        <img width="15%" src="./images/usrProfilePhoto/userDefault.png">
-                        <h5>{{UsrName}}</h5>
-                    </div>
-
-
-                    <div class="PersonsGrp">
-                        <img width="15%" src="./images/usrProfilePhoto/userDefault.png">
-                        <h5>{{UsrName}}</h5>
-                    </div>
-                    <div class="PersonsGrp">
-                        <img width="15%" src="./images/usrProfilePhoto/userDefault.png">
-                        <h5>{{UsrName}}</h5>
-                    </div>
-
-                </div>
+                <div id="getConnectUsr"> </div>
 
             </div>
         </div>

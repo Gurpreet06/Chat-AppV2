@@ -1,3 +1,4 @@
+const socket = io();
 let thisURL = document.URL
 let thisIndex = thisURL.lastIndexOf('userId=')
 let thisPosId = thisURL.substring(thisIndex + 7)
@@ -60,8 +61,9 @@ async function searchUsers(val) {
                     .replaceAll(/{{name}}/g, item.firstname + ' ' + item.Lastname)
                     .replaceAll(/{{img}}/g, item.photo)
                     .replaceAll(/{{caseId}}/g, item.unique_id)
-            } else if (item.firstname.indexOf(val) === -1) {
-                SearchUsersVal.innerHTML = `<p class='noFileType'>No User Found</p>`
+            }
+            if (item.firstname.indexOf(val) === -1) {
+                SearchUsersVal.innerHTML = `<p>No User Found</p>`
             }
         }
 
@@ -120,7 +122,7 @@ let chatHtml = `        <div class="usrChat">
         <div class="main__message_container">
             <input id="chat_message" type="text" autocomplete="off" placeholder="Type message here...">
             <div id="sendMsg" class="options__button">
-                <ion-icon name="send-outline" class='sendChatMsg' onclick="sendMessages(event)"></ion-icon>
+                <ion-icon name="arrow-up-outline" class='sendChatMsg' onclick="sendMessages(event)"></ion-icon>
             </div>
         </div>
     </div>
@@ -129,12 +131,19 @@ let chatHtml = `        <div class="usrChat">
 
 <div class="clientDetails">
     <div>
-        <h4>About</h4>
+        <div>
+            <h4>About</h4>
+        </div>
+        <div class="clientDetails1">
+            <img width="80%" src="{{imgusr}}">
+            <h5>{{UsrName}}</h5>
+            <p>{{UserEmail}}</p>
+        </div>
     </div>
-    <div class="clientDetails1">
-        <img width="80%" src="{{imgusr}}">
-        <h5>{{UsrName}}</h5>
-        <p>{{UserEmail}}</p>
+    <div>
+        <div>
+            <h4>Media</h4>
+        </div>
     </div>
 </div>
 </div>`
@@ -179,17 +188,21 @@ async function sendMessages(evt) {
     let chatMessage = document.getElementById('chat_message')
     let chatUsrName = document.getElementById('charUsrName')
     let currentUserImg = document.getElementById('currentUserImg')
+    let ranApla = getRandomId() + randomAlphaId(6)
+    let obj = {}
 
-    let obj = {
-        type: 'sendMessages',
-        msgId: getRandomId() + randomAlphaId(6),
-        currentUserId: getCookie('usrId'),
-        currentUserName: getCookie('usrName'),
-        chatUserId: thisPosId,
-        chatUserName: chatUsrName.innerHTML,
-        message: chatMessage.value,
-        time: date + ' ' + n,
-        photo: currentUserImg.src
+    if (chatMessage.value !== '') {
+        obj = {
+            type: 'sendMessages',
+            msgId: ranApla,
+            currentUserId: getCookie('usrId'),
+            currentUserName: getCookie('usrName'),
+            chatUserId: thisPosId,
+            chatUserName: chatUsrName.innerHTML,
+            message: chatMessage.value,
+            time: date + ' ' + n,
+            photo: currentUserImg.src
+        }
     }
 
     try {
@@ -199,23 +212,20 @@ async function sendMessages(evt) {
     }
 
     if (serverData.status == 'ok') {
+        socket.emit('chat:message', {
+            msgId: ranApla,
+            currentUserId: getCookie('usrId'),
+            currentUserName: getCookie('usrName'),
+            chatUserId: thisPosId,
+            chatUserName: chatUsrName.innerHTML,
+            message: chatMessage.value,
+            time: date + ' ' + n,
+            photo: currentUserImg.src
+        })
         chatMessage.value = ''
     } else {
         console.log(serverData)
     }
-
-
-    sendBtn.addEventListener('click', () => {
-        if (chatMesageId.value !== '') {
-            socket.emit('chat:message', {
-                message: chatMesageId.value,
-                username: getCookie('usrName')
-            })
-            chatMesageId.value = ''
-        }
-    })
-
-
 
 }
 
@@ -255,11 +265,10 @@ async function getUserChats() {
 
 async function getConnectedUsers() {
     let usrChatList = document.getElementById('usrChatList')
+    let getConnectUsr = document.getElementById('getConnectUsr')
 
     let obj = {
         type: 'getConnectedUsers',
-        currentUserId: getCookie('usrId'),
-        currentUserName: getCookie('usrName')
     }
 
     try {
@@ -269,7 +278,19 @@ async function getConnectedUsers() {
     }
 
     if (serverData.status == 'ok') {
-        console.log(serverData)
+        let rst = serverData.result
+        for (let cnt = 0; cnt < rst.length; cnt = cnt + 1) {
+            let item = rst[cnt]
+            getConnectUsr.innerHTML += `  <div class="PersonsGrp">
+                                        <img width="15%" src="${item.photo}">
+                                        <h5 id='CurrentUser${item.unique_id}' onclick='chatWithUser(this.nextElementSibling.innerHTML,this.innerHTML)'>${item.firstname + ' ' + item.Lastname}</h5>
+                                        <p style='display:none;'>${item.unique_id}</p>
+                                     </div>`
+            if (item.unique_id === getCookie('usrId')) {
+                let usr = document.querySelector('#CurrentUser' + item.unique_id)
+                usr.innerHTML = `${item.firstname + ' ' + item.Lastname} (Me)`
+            }
+        }
     } else {
         console.log(serverData)
     }
