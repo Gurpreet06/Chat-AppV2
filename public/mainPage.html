@@ -22,16 +22,37 @@
     <div class="socailMsg">
         <div class="clientList">
             <div class="Clients">
-                <input type="text" placeholder="Search.." name="search" id="SearchUsersVal"
-                    onkeyup="searchUsers(this.value)">
+                <div class="searchBar">
+                    <input type="text" placeholder="Search.." name="search" id="SearchUsersVal"
+                        onkeyup="searchUsers(this.value)">
+                    <ion-icon name="close-outline"></ion-icon>
+                </div>
+
                 <div class="Searchwrapper" id='Searchwrapper' style="display: none;"> </div>
             </div>
 
             <div class="userLists" id="usrChatList">
+                <div>
+                    <div class="usrDetail">
+                        <h5 id="myChats">My Chats</h5>
+                    </div>
+                </div>
+                <div>
+                    <div class="PersonsGrp">
+                        <img width="15%" src="./images/usrProfilePhoto/userDefault.png">
+                        <h5>{{UsrName}}</h5>
+                    </div>
 
-                <div class="PersonsGrp">
-                    <img width="15%" src="./images/usrProfilePhoto/userDefault.png">
-                    <h5>{{UsrName}}</h5>
+
+                    <div class="PersonsGrp">
+                        <img width="15%" src="./images/usrProfilePhoto/userDefault.png">
+                        <h5>{{UsrName}}</h5>
+                    </div>
+                    <div class="PersonsGrp">
+                        <img width="15%" src="./images/usrProfilePhoto/userDefault.png">
+                        <h5>{{UsrName}}</h5>
+                    </div>
+
                 </div>
 
             </div>

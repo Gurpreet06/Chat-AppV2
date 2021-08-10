@@ -405,7 +405,7 @@ ion-icon {
   flex-direction: column;
 }
 
-.Clients > input {
+.Clients > div > input {
   height: 40px;
   width: 100%;
   font-size: 16px;
@@ -422,6 +422,17 @@ ion-icon {
   padding: 10px;
   margin-left: 10px;
   cursor: pointer;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+}
+
+.searchBar > ion-icon {
+  font-size: 30px;
+  cursor: pointer;
+  margin-left: 10px;
 }
 
 .messages {
@@ -602,4 +613,12 @@ ion-icon {
   margin-left: 18px;
   color: white;
   height: 24px;
+}
+
+#myChats {
+  text-align: center;
+  padding: 7px;
+  font-size: 25px;
+  border-bottom: 1px solid darkgrey;
+  width: 100%;
 }
