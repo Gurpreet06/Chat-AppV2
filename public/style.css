@@ -712,9 +712,25 @@ ion-icon {
   font-size: 15px;
   width: 100%;
   text-align: center;
+  border-bottom: 1px solid darkgrey;
 }
 
+.ioicon {
+  text-decoration: none;
+  display: block;
+  border: none;
+  font-size: 25px;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid darkgrey;
+}
 .downlaod:hover {
+  background-color: #d8e3e7;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.ioicon:hover {
   background-color: #d8e3e7;
   border-radius: 5px;
   cursor: pointer;

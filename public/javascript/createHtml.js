@@ -125,6 +125,7 @@ let chatHtml = `        <div class="usrChat">
                 <div class="dropdown">
                     <div class="dropdown-content">
                         <button class="downlaod" id='' onclick='addEmojiToDiv()'>Emoji</button>
+                        <ion-icon name="images-outline" class='ioicon'></ion-icon>
                     </div>
                     <div>
                     <ion-icon name="add-outline" class='showOps'></ion-icon>
