@@ -1,6 +1,5 @@
 let express = require('express')
 const md5 = require('md5')
-const fs = require('fs')
 const upload = require('express-fileupload')
 const mysql = require('mysql2')
 const SocketIO = require('socket.io')
