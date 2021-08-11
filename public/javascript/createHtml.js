@@ -135,7 +135,7 @@ let chatHtml = `        <div class="usrChat">
             <h4>About</h4>
         </div>
         <div class="clientDetails1">
-            <img width="80%" src="{{imgusr}}">
+            <img width="80%" src="{{imgusr}}" style='margin-top: 20px;'>
             <h5>{{UsrName}}</h5>
             <p>{{UserEmail}}</p>
         </div>
@@ -229,9 +229,31 @@ async function sendMessages(evt) {
 
 }
 
+let leftChatMsg = `
+<div class="message" style='width: 45%;'>
+<b>
+    <img width="5%" style='margin-right: 15px;' src="{{imgPhoto}}">
+    <h5 style='color: black;'>{{UsrName}}</h5>
+    <span class="usrInMsg" style='display:none'> <p>Time:  </p> {{igTime}} </span>
+</b>
+<span>{{igMsg}}</span>
+</div>
+`
+
+let rightUsrChat = `
+<div class="message" style='width: 45%; margin-left: auto;' id='rightCUrrentUsr'>
+<b style='display:none;'>
+    <img width="5%" style='margin-right: 15px;' src="{{imgPhoto}}">
+    <h5>{{UsrName}}</h5>
+    <span class="usrInMsg"> <p>Time:  </p> {{igTime}} </span>
+</b>
+<span>{{igMsg}}</span>
+</div>
+`
 
 async function getUserChats() {
     let appendChat = document.getElementById('appendChat')
+    let html = ''
 
     let obj = {
         type: 'getUserChats',
@@ -244,19 +266,27 @@ async function getUserChats() {
     } catch (err) {
         console.error(err)
     }
+    let template = rightUsrChat
+    let leftUsr = leftChatMsg
 
     if (serverData.status == 'ok') {
         let rst = serverData.result
         for (let cnt = 0; cnt < rst.length; cnt = cnt + 1) {
             let item = rst[cnt]
-            appendChat.innerHTML += `  <div class="message">
-            <b>
-                <img width="5%" style='margin-right: 15px;' src="${item.Photo}">
-                <h5 style='color: black;'>${item.incoming_user_name}</h5>
-                <span class="usrInMsg"> <p>Time:  </p> ${item.Time} </span>
-            </b>
-            <span>${item.msg}</span>
-        </div>`
+            if (item.incoming_msg_id == getCookie('usrId')) {
+                html = html + template
+                    .replaceAll('{{imgPhoto}}', item.Photo)
+                    .replaceAll('{{UsrName}}', item.incoming_user_name)
+                    .replaceAll('{{igTime}}', item.Time)
+                    .replaceAll('{{igMsg}}', item.msg)
+            } else {
+                html = html + leftUsr
+                    .replaceAll('{{imgPhoto}}', item.Photo)
+                    .replaceAll('{{UsrName}}', item.incoming_user_name)
+                    .replaceAll('{{igTime}}', item.Time)
+                    .replaceAll('{{igMsg}}', item.msg)
+            }
+            appendChat.innerHTML = html
         }
     } else {
         console.log(serverData)

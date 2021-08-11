@@ -493,6 +493,11 @@ ion-icon {
   overflow: auto;
 }
 
+#rightCUrrentUsr{
+  background-color: #0099ff;
+  color: white;
+}
+
 .message > b {
   color: #eeeeee;
   display: flex;
@@ -542,13 +547,13 @@ ion-icon {
 .usrInMsg {
   user-select: none;
   display: flex;
-  color: #222325;
+  color: white;
   font-size: 14px;
   font-weight: 600;
 }
 .usrInMsg > p {
   font-size: 13px;
-  color: #95979d;
+  color: white;
   margin: 0 5px;
   margin-left: 20px;
 }
