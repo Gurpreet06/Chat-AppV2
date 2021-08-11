@@ -43,7 +43,7 @@ body {
   width: 100%;
 }
 
-:is(.form, #userChatIndex)::-webkit-scrollbar {
+:is(.form, #userChatIndex, #appendChat)::-webkit-scrollbar {
   width: 0px;
 }
 
@@ -105,7 +105,7 @@ textarea {
 .form form .input textarea::placeholder-shown ~ label {
   padding: 20px;
   font-size: 16px;
-  top: 50px;
+  top: 140px;
 }
 
 .form form .input > input:valid ~ div {
@@ -455,6 +455,7 @@ ion-icon {
   min-width: 700px;
   max-width: 700px;
   overflow: hidden;
+  padding: 4px;
 }
 
 .PersonsGrp {
