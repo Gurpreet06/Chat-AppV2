@@ -632,6 +632,22 @@ ion-icon {
   color: white;
   height: 24px;
 }
+.showOps {
+  margin: 0;
+  cursor: pointer;
+  background: #9096a0;
+  padding: 11px;
+  margin-left: 18px;
+  color: white;
+  height: 24px;
+}
+
+.showOps:hover {
+  background-color: #0099ff;
+}
+.options__button {
+  display: flex;
+}
 
 #myChats {
   text-align: center;
@@ -645,7 +661,11 @@ ion-icon {
   cursor: pointer;
 }
 
+.Emojis {
+  max-width: 42%;
+}
 .Emojis > span {
   cursor: pointer;
   font-size: 23px;
+  border: 1px solid darkgrey;
 }
