@@ -43,7 +43,7 @@ body {
   width: 100%;
 }
 
-:is(.form)::-webkit-scrollbar {
+:is(.form, #userChatIndex)::-webkit-scrollbar {
   width: 0px;
 }
 
@@ -444,6 +444,19 @@ ion-icon {
   height: 500px;
 }
 
+
+#userChatIndex {
+  width: 100%;
+  overflow: auto;
+}
+
+#chat_message {
+  min-height: 40px;
+  min-width: 700px;
+  max-width: 700px;
+  overflow: hidden;
+}
+
 .PersonsGrp {
   display: flex;
   align-items: center;
@@ -493,7 +506,7 @@ ion-icon {
   overflow: auto;
 }
 
-#rightCUrrentUsr{
+#rightCUrrentUsr {
   background-color: #0099ff;
   color: white;
 }

@@ -120,7 +120,7 @@ let chatHtml = `        <div class="usrChat">
     </div>
     <div>
         <div class="main__message_container">
-            <textarea id="chat_message" type="text" autocomplete="off" cols="30" rows="10" placeholder="Type message here..." style='min-width: 700px;max-width: 700px;'></textarea>
+            <textarea id="chat_message" type="text" autocomplete="off" cols="30" rows="10" placeholder="Type message here..."></textarea>
             <div id="sendMsg" class="options__button">
                 <ion-icon name="arrow-up-outline" class='sendChatMsg' onclick="sendMessages(event)"></ion-icon>
             </div>
@@ -175,6 +175,17 @@ async function createMsgHtml() {
 
             userChatIndex.innerHTML = html
             getUserChats()
+
+            // Auto expand TextArea
+            let AutoTextarea = document.querySelector('#chat_message');
+            AutoTextarea.addEventListener('keydown', autosize);
+            function autosize() {
+                let el = this;
+                setTimeout(function () {
+                    el.style.cssText = ' padding:0';
+                    el.style.cssText = 'height:' + el.scrollHeight + 'px';
+                }, 0);
+            }
         }
 
     } else {
