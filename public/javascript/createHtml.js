@@ -122,9 +122,21 @@ let chatHtml = `        <div class="usrChat">
         <div class="main__message_container">
             <textarea id="chat_message" type="text" autocomplete="off" cols="30" rows="10" placeholder="Type message here..."></textarea>
             <div id="sendMsg" class="options__button">
-                <ion-icon name="add-outline" class='showOps'></ion-icon>
+                <div class="dropdown">
+                    <div class="dropdown-content">
+                        <button class="downlaod" id='' onclick='addEmojiToDiv()'>Emoji</button>
+                    </div>
+                    <div>
+                    <ion-icon name="add-outline" class='showOps'></ion-icon>
+                    </div>
+                </div>
                 <ion-icon name="arrow-up-outline" class='sendChatMsg' onclick="sendMessages(event)"></ion-icon>
             </div>
+        </div>
+        
+        <div id='closeEmojis'>
+                <ion-icon name="close-outline" class='closeEmoji' onclick='CloseEmojis()'></ion-icon>
+                <div class="Emojis" id="AddEmojis"> </div>
         </div>
     </div>
 
@@ -340,18 +352,28 @@ async function getConnectedUsers() {
 
 
 // Create Emojis For Users
-let userEmojis = ["✌", "😂", "😝", "😁", "😱", "👉", "🙌", "🍻", "🔥", "🌈", "☀", "🎈", "🌹", "💄", "🎀", "⚽", "🎾", "🏁", "😡", "👿", "🐻", "🐶", "🐬", "🐟", "🍀", "👀", "🚗", "🍎", "💝", "💙", "👌", "❤", "😍", "😉", "😓", "😳", "💪", "💩", "🍸", "🔑", "💖", "🌟", "🎉", "🌺", "🎶", "👠", "🏈", "⚾", "🏆", "👽", "💀", "🐵", "🐮", "🐩", "🐎", "💣", "👃", "👂", "🍓", "💘", "💜", "👊", "💋", "😘", "😜", "😵", "🙏", "👋", "🚽", "💃", "💎", "🚀", "🌙", "🎁", "⛄", "🌊", "⛵", "🏀", "🎱", "💰", "👶", "👸", "🐰", "🐷", "🐍", "🐫", "🔫", "👄", "🚲", "🍉", "💛", "💚"]
+function addEmojiToDiv() {
+    let userEmojis = ["✌", "😂", "😝", "😁", "😱", "👉", "🙌", "🍻", "🔥", "🌈", "☀", "🎈", "🌹", "💄", "🎀", "⚽", "🎾", "🏁", "😡", "👿", "🐻", "🐶", "🐬", "🐟", "🍀", "👀", "🚗", "🍎", "💝", "💙", "👌", "❤", "😍", "😉", "😓", "😳", "💪", "💩", "🍸", "🔑", "💖", "🌟", "🎉", "🌺", "🎶", "👠", "🏈", "⚾", "🏆", "👽", "💀", "🐵", "🐮", "🐩", "🐎", "💣", "👃", "👂", "🍓", "💘", "💜", "👊", "💋", "😘", "😜", "😵", "🙏", "👋", "🚽", "💃", "💎", "🚀", "🌙", "🎁", "⛄", "🌊", "⛵", "🏀", "🎱", "💰", "👶", "👸", "🐰", "🐷", "🐍", "🐫", "🔫", "👄", "🚲", "🍉", "💛", "💚"]
 
-let AddEmojis = document.getElementById('AddEmojis')
-for (let cnt = 0; cnt < userEmojis.length; cnt = cnt + 1) {
-    let EmoJis = userEmojis[cnt]
-    AddEmojis.innerHTML += `<span onclick='addEmojiToVal(this.innerHTML)'>${EmoJis}</span>`
+    let AddEmojis = document.getElementById('AddEmojis')
+    let closeEmojis = document.getElementById('closeEmojis')
+    closeEmojis.style.display = 'block'
+    for (let cnt = 0; cnt < userEmojis.length; cnt = cnt + 1) {
+        let EmoJis = userEmojis[cnt]
+        AddEmojis.innerHTML += `<span onclick='addEmojiToVal(this.innerHTML)'>${EmoJis}</span>`
+    }
 }
 
 function addEmojiToVal(EmojiVal) {
     let sendChatMsg = document.getElementById('chat_message')
     sendChatMsg.value += EmojiVal
 }
+
+function CloseEmojis() {
+    let closeEmojis = document.getElementById('closeEmojis')
+    closeEmojis.style.display = 'none'
+}
+
 
 /**
  * Hides an element
