@@ -444,7 +444,6 @@ ion-icon {
   height: 500px;
 }
 
-
 #userChatIndex {
   width: 100%;
   overflow: auto;
@@ -640,4 +639,13 @@ ion-icon {
   font-size: 25px;
   border-bottom: 1px solid darkgrey;
   width: 100%;
+}
+
+.ChatOp {
+  cursor: pointer;
+}
+
+.Emojis > span {
+  cursor: pointer;
+  font-size: 23px;
 }

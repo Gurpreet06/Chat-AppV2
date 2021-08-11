@@ -108,7 +108,7 @@ let chatHtml = `        <div class="usrChat">
     <h5 style='font-size: 28px;' id='charUsrName'>{{UsrName}}</h5>
 </div>
 <div>
-    <ion-icon name="list-outline"></ion-icon>
+    <ion-icon name="list-outline" class='ChatOp'></ion-icon>
 </div>
 </div>
 <div class="usrMsad">
@@ -337,6 +337,19 @@ async function getConnectedUsers() {
     }
 }
 
+
+// Create Emojis For Users
+let userEmojis = ["✌", "😂", "😝", "😁", "😱", "👉", "🙌", "🍻", "🔥", "🌈", "☀", "🎈", "🌹", "💄", "🎀", "⚽", "🎾", "🏁", "😡", "👿", "🐻", "🐶", "🐬", "🐟", "🍀", "👀", "🚗", "🍎", "💝", "💙", "👌", "❤", "😍", "😉", "😓", "😳", "💪", "💩", "🍸", "🔑", "💖", "🌟", "🎉", "🌺", "🎶", "👠", "🏈", "⚾", "🏆", "👽", "💀", "🐵", "🐮", "🐩", "🐎", "💣", "👃", "👂", "🍓", "💘", "💜", "👊", "💋", "😘", "😜", "😵", "🙏", "👋", "🚽", "💃", "💎", "🚀", "🌙", "🎁", "⛄", "🌊", "⛵", "🏀", "🎱", "💰", "👶", "👸", "🐰", "🐷", "🐍", "🐫", "🔫", "👄", "🚲", "🍉", "💛", "💚"]
+
+let AddEmojis = document.getElementById('AddEmojis')
+for (let cnt = 0; cnt < userEmojis.length; cnt = cnt + 1) {
+    let EmoJis = userEmojis[cnt]
+    AddEmojis.innerHTML +=  `<span onclick='addEmojiToVal(this.innerHTML)'>${EmoJis}</span>`
+}
+
+function addEmojiToVal(EmojiVal){
+    console.log(EmojiVal)
+}
 
 /**
  * Hides an element
