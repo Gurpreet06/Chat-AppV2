@@ -529,3 +529,71 @@ function getCookie(name) {
 }
 
 window.addEventListener('load', () => { searchUsers(), createMsgHtml(), getConnectedUsers() })
+
+let upldMedia = `
+<form action="/mainPage.html" method="POST" enctype="multipart/form-data" autocomplete="off">
+<div class="wrapper" id="upSideDown">
+    <div id="FilEnAME">
+        <div>File Name: </div>
+        <div id="UpPgoo"> </div>
+    </div>
+    <div class="uplodDiv">
+        <div class="field image">
+            <input type="file" class="file" name="sampleFile" style="display: none;" id="photoInpt" required
+                onchange="checkFile()">
+        </div>
+    </div>
+    <div class="field button" id="boxButton">
+        <input type="submit" id="uploadBtn" onclick='querySendFile()' name="submit" value="Upload Now">
+    </div>
+    <div id="boxSpinner" class="defDiv elmBoxSpinner">
+        <!-- Div - boxSpinner -->
+        <div class="defDivFlex elm71">
+            <!-- Flex -->
+            <div class="defDivFlexChild">
+                <!-- Flex child -->
+                <div class="defDiv elm73">
+                    <!-- Div -->
+                    <div class="waitSpinner">
+                        <!-- Wait spinner -->
+                        <svg viewBox="0 0 50 50">
+                            <!-- Spinner main -->
+                            <circle cx="25" cy="25" r="20" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="boxOk" class="defDiv elmBoxOk" style="display: none;">
+        <!-- Div - boxOk -->
+        <div class="defDivFlex elm78">
+            <!-- Flex -->
+            <div class="defDivFlexChild">
+                <!-- Flex child -->
+                <div class="defText elm80">
+                    <!-- Text -->
+                    Data sent properly
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="boxError" class="defDiv elmBoxError">
+        <!-- Div - boxError -->
+        <div class="defDivFlex elm82">
+            <!-- Flex -->
+            <div class="defDivFlexChild">
+                <!-- Flex child -->
+                <div class="defText elm84">
+                    <!-- Text -->
+                    Incorrect Email or Password!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+`
+
+let uploadMedias = document.getElementById('uploadMedias')
+uploadMedias.innerHTML = upldMedia
