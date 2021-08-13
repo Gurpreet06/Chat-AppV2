@@ -103,6 +103,13 @@ let nousrSlec = `
 </div>
 `
 
+let noChats = `
+<div class="messages">
+<img src="./images/WebTool/bubble-green.da39d35.svg">
+<strong style='margin-top: 20px;'>Be the first to send a message</strong>
+</div>
+`
+
 let chatHtml = `        <div class="usrChat">
 <div class="usrDetail">
     <h5 style='font-size: 28px;' id='charUsrName'>{{UsrName}}</h5>
@@ -299,23 +306,28 @@ async function getUserChats() {
 
     if (serverData.status == 'ok') {
         let rst = serverData.result
-        for (let cnt = 0; cnt < rst.length; cnt = cnt + 1) {
-            let item = rst[cnt]
-            if (item.incoming_msg_id == getCookie('usrId')) {
-                html = html + template
-                    .replaceAll('{{imgPhoto}}', item.Photo)
-                    .replaceAll('{{UsrName}}', item.incoming_user_name)
-                    .replaceAll('{{igTime}}', item.Time)
-                    .replaceAll('{{igMsg}}', item.msg)
-            } else {
-                html = html + leftUsr
-                    .replaceAll('{{imgPhoto}}', item.Photo)
-                    .replaceAll('{{UsrName}}', item.incoming_user_name)
-                    .replaceAll('{{igTime}}', item.Time)
-                    .replaceAll('{{igMsg}}', item.msg)
+        if(rst.length !== 0){
+            for (let cnt = 0; cnt < rst.length; cnt = cnt + 1) {
+                let item = rst[cnt]
+                if (item.incoming_msg_id == getCookie('usrId')) {
+                    html = html + template
+                        .replaceAll('{{imgPhoto}}', item.Photo)
+                        .replaceAll('{{UsrName}}', item.incoming_user_name)
+                        .replaceAll('{{igTime}}', item.Time)
+                        .replaceAll('{{igMsg}}', item.msg)
+                } else {
+                    html = html + leftUsr
+                        .replaceAll('{{imgPhoto}}', item.Photo)
+                        .replaceAll('{{UsrName}}', item.incoming_user_name)
+                        .replaceAll('{{igTime}}', item.Time)
+                        .replaceAll('{{igMsg}}', item.msg)
+                }
+                appendChat.innerHTML = html
             }
-            appendChat.innerHTML = html
+        }else{
+            appendChat.innerHTML = noChats
         }
+   
     } else {
         console.log(serverData)
     }
@@ -456,24 +468,29 @@ async function getMediaDB() {
 
     if (serverData.status == 'ok') {
         let rst = serverData.result
-        for (let cnt = 0; cnt < rst.length; cnt = cnt + 1) {
-            let item = rst[cnt]
-            let getMediaExt = item.msg
-            let MediaIndex = getMediaExt.lastIndexOf('.')
-            let numMediaIndex = getMediaExt.substring(MediaIndex)
-            for (let cnt = 0; cnt < imgExt.length; cnt = cnt + 1) {
-                let ext = imgExt[cnt]
-                if (numMediaIndex === ext) {
-                    html = html + template
-                        .replaceAll('{{UsrName}}', item.incoming_user_name)
-                        .replaceAll('{{imgMedia}}', item.msg)
+        if (rst.length !== 0) {
+            for (let cnt = 0; cnt < rst.length; cnt = cnt + 1) {
+                let item = rst[cnt]
+                let getMediaExt = item.msg
+                let MediaIndex = getMediaExt.lastIndexOf('.')
+                let numMediaIndex = getMediaExt.substring(MediaIndex)
+                for (let cnt = 0; cnt < imgExt.length; cnt = cnt + 1) {
+                    let ext = imgExt[cnt]
+                    if (numMediaIndex === ext) {
+                        html = html + template
+                            .replaceAll('{{UsrName}}', item.incoming_user_name)
+                            .replaceAll('{{imgMedia}}', item.msg)
 
-                } else {
-                    html = `<p>No media has been shared yet!</p>`
+                    } else {
+                        html = `<p>No media has been shared yet!</p>`
+                    }
                 }
+                getAllMedia.innerHTML = html
             }
-            getAllMedia.innerHTML = html
+        } else {
+            getAllMedia.innerHTML = `<p>No media has been shared yet!</p>`
         }
+
     } else {
         console.log(serverData)
     }
