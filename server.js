@@ -13,9 +13,10 @@ let publicFolder = './public'
 // connect to mysql dataBase
 const Connection = mysql.createConnection({
     host: '',
-    user: '',
+    user: 'root',
     password: '',
     database: 'chatapp',
+    port: 3307
 })
 
 // Check if  connection  was succeeded
@@ -184,6 +185,16 @@ app.post('/register.html', function (req, res) {
     let uploadPath = __dirname + '/public/images/usrProfilePhoto/' + sampleFile.name;
     sampleFile.mv(uploadPath)
     res.redirect('/register.html');
+});
+
+
+// Send Medias
+app.post('/mainPage.html', function (req, res) {
+    console.log(req.files); // the uploaded file object
+    let sampleFile; // Input Name
+    sampleFile = req.files.sampleFile;
+    let uploadPath = __dirname + '/public/images/Medias/' + sampleFile.name;
+    sampleFile.mv(uploadPath)
 });
 
 

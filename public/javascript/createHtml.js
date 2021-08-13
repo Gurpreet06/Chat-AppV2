@@ -125,7 +125,7 @@ let chatHtml = `        <div class="usrChat">
                 <div class="dropdown">
                     <div class="dropdown-content">
                         <button class="downlaod" id='' onclick='addEmojiToDiv()'>Emoji</button>
-                        <ion-icon name="images-outline" class='ioicon'></ion-icon>
+                        <ion-icon name="images-outline" class='ioicon' onclick="ClickBtn()"></ion-icon>
                     </div>
                     <div>
                     <ion-icon name="add-outline" class='showOps'></ion-icon>
@@ -278,6 +278,7 @@ let rightUsrChat = `
 
 async function getUserChats() {
     let appendChat = document.getElementById('appendChat')
+    let imgExt = ['.jpg', '.JPG', '.png', '.PNG', '.jpeg', '.JPEG']
     let html = ''
 
     let obj = {
@@ -375,6 +376,73 @@ function CloseEmojis() {
     closeEmojis.style.display = 'none'
 }
 
+// Upload Images and Videos
+async function ClickBtn() {
+    let photoInpt = document.getElementById('photoInpt')
+    photoInpt.click()
+}
+
+async function checkFile() {
+    let inputFile = document.getElementById('photoInpt')
+    let UpPgoo = document.getElementById('UpPgoo')
+    let upSideDown = document.getElementById('upSideDown')
+
+    if (inputFile.value != '') {
+        let fileName = inputFile.value.lastIndexOf('\\')
+        let fileLastName = inputFile.value.substring(fileName + 1)
+        UpPgoo.innerHTML = `
+          <div class="upldFiles">
+            <h4 id='currentMedia'>${fileLastName}</h4>
+          </div>
+        `
+    }
+
+    upSideDown.style.display = 'block'
+    await wait(500)
+    upSideDown.style.transform = 'translate3d(0px, -500px, 0)'
+}
+
+async function querySendFile() {
+    await hideElement('uploadBtn')
+    await showElement('boxSpinner')
+
+    let currentMedia = document.getElementById('currentMedia')
+    let chatUsrName = document.getElementById('charUsrName')
+    let currentUserImg = document.getElementById('currentUserImg')
+    let ranApla = getRandomId() + randomAlphaId(6)
+
+
+    let obj = {
+        type: 'sendMessages',
+        msgId: ranApla,
+        currentUserId: getCookie('usrId'),
+        currentUserName: getCookie('usrName'),
+        chatUserId: thisPosId,
+        chatUserName: chatUsrName.innerHTML,
+        message: 'images/Medias/' + currentMedia.innerHTML,
+        time: date + ' ' + n,
+        photo: currentUserImg.src
+    }
+
+    try {
+        serverData = await queryServer('/queryusr', obj)
+    } catch (err) {
+        console.error(err)
+    }
+
+
+    await wait(900)
+    await hideElement('boxSpinner')
+    await showElement('boxOk')
+
+    if (serverData.status == 'ok') {
+        let url = document.URL
+        location.href = url
+        console.log(url)
+        // history.back()
+    }
+    await wait(900)
+}
 
 /**
  * Hides an element

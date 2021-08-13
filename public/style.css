@@ -717,6 +717,7 @@ ion-icon {
 
 .ioicon {
   text-decoration: none;
+  padding: 14px 2px;
   display: block;
   border: none;
   font-size: 25px;
@@ -746,5 +747,36 @@ ion-icon {
 }
 
 .dropdown-content a:hover {
+  color: white;
+}
+
+#upSideDown {
+  max-width: 706px;
+  display: none;
+  transform: translate3d(0px, -1050px, 0);
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+
+#upSideDown > #FilEnAME {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px;
+}
+
+#upSideDown > #boxButton {
+  padding: 20px;
+}
+
+#upSideDown > #boxButton > input {
+  cursor: pointer;
+  height: 40px;
+  width: 50%;
+  font-size: 16px;
+  padding: 0 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+  background: #ba54eb;
   color: white;
 }
