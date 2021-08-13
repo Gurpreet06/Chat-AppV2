@@ -682,6 +682,16 @@ ion-icon {
   cursor: pointer;
 }
 
+.closeImg {
+  float: right;
+  display: flex;
+  font-size: 28px;
+  height: 35px;
+  width: 35px;
+  cursor: pointer;
+  margin-top: 14px;
+}
+
 #closeEmojis {
   display: none;
 }
@@ -779,4 +789,40 @@ ion-icon {
   outline: none;
   background: #ba54eb;
   color: white;
+}
+
+.checkMedia {
+  color: darkgray;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.checkMedia:hover {
+  text-decoration: underline;
+  color: #0099ff;
+}
+
+#getAllMedia {
+  display: flex;
+  padding: 15px;
+  flex-wrap: wrap;
+}
+#getAllMedia > div {
+  text-align: center;
+  width: 108px;
+  margin: 11px;
+}
+
+#getAllMedia > div > h5 {
+  margin-top: 11px;
+}
+
+#transMedia {
+  display: none;
+  transform: translate3d(0px, -1950px, 0);
+  transition: transform 0.3s ease;
+}
+
+.mediaImg {
+  width: 100%;
 }

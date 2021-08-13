@@ -158,6 +158,9 @@ let chatHtml = `        <div class="usrChat">
         <div>
             <h4>Media</h4>
         </div>
+        <div>
+            <p class='checkMedia' onclick='showMediaDiv()'>Click to see all media in this chat..</p>
+        </div>
     </div>
 </div>
 </div>`
@@ -278,7 +281,6 @@ let rightUsrChat = `
 
 async function getUserChats() {
     let appendChat = document.getElementById('appendChat')
-    let imgExt = ['.jpg', '.JPG', '.png', '.PNG', '.jpeg', '.JPEG']
     let html = ''
 
     let obj = {
@@ -400,6 +402,81 @@ async function checkFile() {
     upSideDown.style.display = 'block'
     await wait(500)
     upSideDown.style.transform = 'translate3d(0px, -500px, 0)'
+}
+
+async function closeImg() {
+    let upSideDown = document.getElementById('upSideDown')
+
+    upSideDown.style.transform = 'translate3d(0px, -1050px, 0)'
+    await wait(500)
+    upSideDown.style.display = 'none'
+}
+
+
+async function showMediaDiv() {
+    getMediaDB()
+    let transMedia = document.getElementById('transMedia')
+
+    transMedia.style.display = 'block'
+    await wait(500)
+    transMedia.style.transform = 'translate3d(0px, -700px, 0)'
+}
+
+async function closeMediaDiv() {
+    let transMedia = document.getElementById('transMedia')
+
+    transMedia.style.transform = 'translate3d(0px, -2050px, 0)'
+    await wait(500)
+    transMedia.style.display = 'none'
+}
+
+let mediaTemp = ` <div>
+<img src="{{imgMedia}}" class="mediaImg">
+<h5>{{UsrName}}</h5>
+</div>`
+
+async function getMediaDB() {
+    let imgExt = ['.jpg', '.JPG', '.png', '.PNG', '.jpeg', '.JPEG']
+    let getAllMedia = document.getElementById('getAllMedia')
+    let html = ''
+
+    let obj = {
+        type: 'getUserChats',
+        chatUserId: thisPosId,
+        currentUserId: getCookie('usrId'),
+    }
+
+    try {
+        serverData = await queryServer('/queryusr', obj)
+    } catch (err) {
+        console.error(err)
+    }
+
+    let template = mediaTemp
+
+    if (serverData.status == 'ok') {
+        let rst = serverData.result
+        for (let cnt = 0; cnt < rst.length; cnt = cnt + 1) {
+            let item = rst[cnt]
+            let getMediaExt = item.msg
+            let MediaIndex = getMediaExt.lastIndexOf('.')
+            let numMediaIndex = getMediaExt.substring(MediaIndex)
+            for (let cnt = 0; cnt < imgExt.length; cnt = cnt + 1) {
+                let ext = imgExt[cnt]
+                if (numMediaIndex === ext) {
+                    html = html + template
+                        .replaceAll('{{UsrName}}', item.incoming_user_name)
+                        .replaceAll('{{imgMedia}}', item.msg)
+                   
+                } else {
+                    getAllMedia.innerHTML = `<p>No media has been shared yet!</p>`
+                }
+            }
+            getAllMedia.innerHTML = html
+        }
+    } else {
+        console.log(serverData)
+    }
 }
 
 async function querySendFile() {
@@ -533,6 +610,7 @@ window.addEventListener('load', () => { searchUsers(), createMsgHtml(), getConne
 let upldMedia = `
 <form action="/mainPage.html" method="POST" enctype="multipart/form-data" autocomplete="off">
 <div class="wrapper" id="upSideDown">
+    <ion-icon name="close-outline" class='closeImg' onclick='closeImg()'></ion-icon>
     <div id="FilEnAME">
         <div>File Name: </div>
         <div id="UpPgoo"> </div>
@@ -597,3 +675,13 @@ let upldMedia = `
 
 let uploadMedias = document.getElementById('uploadMedias')
 uploadMedias.innerHTML = upldMedia
+
+let getMd = `
+    <div class="wrapper" id="transMedia">
+        <ion-icon name="close-outline" class='closeImg' onclick='closeMediaDiv()'></ion-icon>
+        <div id="getAllMedia"> </div>
+    </div>
+`
+
+let getMedias = document.getElementById('getMedias')
+getMedias.innerHTML = getMd
