@@ -106,7 +106,7 @@ let nousrSlec = `
 let noChats = `
 <div class="messages">
 <img src="./images/WebTool/bubble-green.da39d35.svg">
-<strong style='margin-top: 20px;'>Be the first to send a message</strong>
+<strong style='margin-top: 20px;'>Be first to send a message</strong>
 </div>
 `
 
