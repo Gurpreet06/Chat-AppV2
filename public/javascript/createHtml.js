@@ -467,9 +467,9 @@ async function getMediaDB() {
                     html = html + template
                         .replaceAll('{{UsrName}}', item.incoming_user_name)
                         .replaceAll('{{imgMedia}}', item.msg)
-                   
+
                 } else {
-                    getAllMedia.innerHTML = `<p>No media has been shared yet!</p>`
+                    html = `<p>No media has been shared yet!</p>`
                 }
             }
             getAllMedia.innerHTML = html
