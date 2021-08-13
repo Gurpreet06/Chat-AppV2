@@ -306,7 +306,7 @@ async function getUserChats() {
 
     if (serverData.status == 'ok') {
         let rst = serverData.result
-        if(rst.length !== 0){
+        if (rst.length !== 0) {
             for (let cnt = 0; cnt < rst.length; cnt = cnt + 1) {
                 let item = rst[cnt]
                 if (item.incoming_msg_id == getCookie('usrId')) {
@@ -324,10 +324,10 @@ async function getUserChats() {
                 }
                 appendChat.innerHTML = html
             }
-        }else{
+        } else {
             appendChat.innerHTML = noChats
         }
-   
+
     } else {
         console.log(serverData)
     }
@@ -480,12 +480,13 @@ async function getMediaDB() {
                         html = html + template
                             .replaceAll('{{UsrName}}', item.incoming_user_name)
                             .replaceAll('{{imgMedia}}', item.msg)
-
+                        getAllMedia.innerHTML = html
                     } else {
-                        html = `<p>No media has been shared yet!</p>`
+                        let noMsg = `<p>No media has been shared yet!</p>`
                     }
                 }
                 getAllMedia.innerHTML = html
+
             }
         } else {
             getAllMedia.innerHTML = `<p>No media has been shared yet!</p>`
