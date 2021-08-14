@@ -172,6 +172,10 @@ let chatHtml = `        <div class="usrChat">
 </div>
 </div>`
 
+setInterval(() => {
+    getUserChats()
+}, 1500);
+
 async function createMsgHtml() {
     let userChatIndex = document.getElementById('userChatIndex')
     let html = ''
@@ -259,6 +263,7 @@ async function sendMessages(evt) {
             photo: currentUserImg.src
         })
         chatMessage.value = ''
+        getUserChats()
     } else {
         console.log(serverData)
     }
