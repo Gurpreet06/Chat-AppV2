@@ -172,6 +172,19 @@ async function answerUsrdata(request, response) {
             }
         })
     }
+
+    else if (data.type === 'DelMessages') {
+        let getData = `delete from messages where msg_id = '${data.msgId}'`
+
+        Connection.query(getData, (err, rows) => {
+            if (err) {
+                response.json({ status: 'ko', result: 'Database error' })
+                console.log(err)
+            } else {
+                response.json({ status: 'ok', result: rows })
+            }
+        })
+    }
 }
 
 // Upload Servicios

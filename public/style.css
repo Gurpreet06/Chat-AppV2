@@ -826,3 +826,14 @@ ion-icon {
 .mediaImg {
   width: 100%;
 }
+
+.msgOptions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.showMsgOp {
+  cursor: pointer;
+  color: white;
+}

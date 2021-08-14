@@ -172,9 +172,7 @@ let chatHtml = `        <div class="usrChat">
 </div>
 </div>`
 
-setInterval(() => {
-    getUserChats()
-}, 1500);
+
 
 async function createMsgHtml() {
     let userChatIndex = document.getElementById('userChatIndex')
@@ -289,7 +287,17 @@ let rightUsrChat = `
     <h5>{{UsrName}}</h5>
     <span class="usrInMsg"> <p>Time:  </p> {{igTime}} </span>
 </b>
-<span>{{igMsg}}</span>
+<div class='msgOptions'>
+    <span>{{igMsg}} </span>
+    <div class="dropdown">
+        <div class="dropdown-content">
+            <button class="downlaod" id='{{igId}}' onclick='delChat(this.id)'>Delete Message</button>
+        </div>
+        <div>
+         <ion-icon name="ellipsis-vertical-outline" class='showMsgOp'></ion-icon>
+        </div>
+    </div>
+</div>
 <img src='{{igMedia}}' width='100%' style='display: {{none}}'>
 </div>
 `
@@ -325,6 +333,7 @@ async function getUserChats() {
                             .replaceAll('{{igTime}}', item.Time)
                             .replaceAll('{{igMsg}}', item.msg)
                             .replaceAll('{{none}}', 'none')
+                            .replaceAll('{{igId}}', item.msg_id)
                     } else {
                         html = html + leftUsr
                             .replaceAll('{{imgPhoto}}', item.Photo)
@@ -342,6 +351,7 @@ async function getUserChats() {
                             .replaceAll('{{igMsg}}', '')
                             .replaceAll('{{igMedia}}', item.msg)
                             .replaceAll('{{none}}', 'block')
+                            .replaceAll('{{igId}}', item.msg_id)
                     } else {
                         html = html + leftUsr
                             .replaceAll('{{imgPhoto}}', item.Photo)
@@ -574,6 +584,26 @@ async function querySendFile() {
         history.back()
     }
     await wait(900)
+}
+
+// Delete Messages
+async function delChat(chatId) {
+    let obj = {
+        type: 'DelMessages',
+        msgId: chatId,
+    }
+
+    try {
+        serverData = await queryServer('/queryusr', obj)
+    } catch (err) {
+        console.error(err)
+    }
+
+    if (serverData.status == 'ok') {
+        getUserChats()
+    } else {
+        console.log(serverData)
+    }
 }
 
 /**
