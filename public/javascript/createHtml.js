@@ -236,7 +236,8 @@ async function sendMessages(evt) {
             chatUserName: chatUsrName.innerHTML,
             message: chatMessage.value,
             time: date + ' ' + n,
-            photo: currentUserImg.src
+            photo: currentUserImg.src,
+            msgType: 'Message'
         }
     }
 
@@ -272,6 +273,7 @@ let leftChatMsg = `
     <span class="usrInMsg" style='display:none'> <p>Time:  </p> {{igTime}} </span>
 </b>
 <span>{{igMsg}}</span>
+<img src='{{igMedia}}' width='100%' style='display: {{none}}'>
 </div>
 `
 
@@ -283,6 +285,7 @@ let rightUsrChat = `
     <span class="usrInMsg"> <p>Time:  </p> {{igTime}} </span>
 </b>
 <span>{{igMsg}}</span>
+<img src='{{igMedia}}' width='100%' style='display: {{none}}'>
 </div>
 `
 
@@ -309,19 +312,43 @@ async function getUserChats() {
         if (rst.length !== 0) {
             for (let cnt = 0; cnt < rst.length; cnt = cnt + 1) {
                 let item = rst[cnt]
-                if (item.incoming_msg_id == getCookie('usrId')) {
-                    html = html + template
-                        .replaceAll('{{imgPhoto}}', item.Photo)
-                        .replaceAll('{{UsrName}}', item.incoming_user_name)
-                        .replaceAll('{{igTime}}', item.Time)
-                        .replaceAll('{{igMsg}}', item.msg)
-                } else {
-                    html = html + leftUsr
-                        .replaceAll('{{imgPhoto}}', item.Photo)
-                        .replaceAll('{{UsrName}}', item.incoming_user_name)
-                        .replaceAll('{{igTime}}', item.Time)
-                        .replaceAll('{{igMsg}}', item.msg)
+                console.log(item)
+                if (item.msg_type === 'Message') {
+                    if (item.incoming_msg_id == getCookie('usrId')) {
+                        html = html + template
+                            .replaceAll('{{imgPhoto}}', item.Photo)
+                            .replaceAll('{{UsrName}}', item.incoming_user_name)
+                            .replaceAll('{{igTime}}', item.Time)
+                            .replaceAll('{{igMsg}}', item.msg)
+                            .replaceAll('{{none}}', 'none')
+                    } else {
+                        html = html + leftUsr
+                            .replaceAll('{{imgPhoto}}', item.Photo)
+                            .replaceAll('{{UsrName}}', item.incoming_user_name)
+                            .replaceAll('{{igTime}}', item.Time)
+                            .replaceAll('{{igMsg}}', item.msg)
+                            .replaceAll('{{none}}', 'none')
+                    }
+                } else if (item.msg_type === 'Media') {
+                    if (item.incoming_msg_id == getCookie('usrId')) {
+                        html = html + template
+                            .replaceAll('{{imgPhoto}}', item.Photo)
+                            .replaceAll('{{UsrName}}', item.incoming_user_name)
+                            .replaceAll('{{igTime}}', item.Time)
+                            .replaceAll('{{igMsg}}', '')
+                            .replaceAll('{{igMedia}}', item.msg)
+                            .replaceAll('{{none}}', 'block')
+                    } else {
+                        html = html + leftUsr
+                            .replaceAll('{{imgPhoto}}', item.Photo)
+                            .replaceAll('{{UsrName}}', item.incoming_user_name)
+                            .replaceAll('{{igTime}}', item.Time)
+                            .replaceAll('{{igMsg}}', '')
+                            .replaceAll('{{igMedia}}', item.msg)
+                            .replaceAll('{{none}}', 'block')
+                    }
                 }
+
                 appendChat.innerHTML = html
             }
         } else {
@@ -516,7 +543,8 @@ async function querySendFile() {
         chatUserName: chatUsrName.innerHTML,
         message: 'images/Medias/' + currentMedia.innerHTML,
         time: date + ' ' + n,
-        photo: currentUserImg.src
+        photo: currentUserImg.src,
+        msgType: 'Media'
     }
 
     try {

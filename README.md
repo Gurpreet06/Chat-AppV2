@@ -31,4 +31,4 @@ npm run supervisor
 
 Home Page
 
-![Photos](public/images/gitCap/Preview0.JPG)
+![Photos](public/images/gitCap/Previews0.JPG)

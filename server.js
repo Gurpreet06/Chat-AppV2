@@ -13,9 +13,10 @@ let publicFolder = './public'
 // connect to mysql dataBase
 const Connection = mysql.createConnection({
     host: '',
-    user: '',
+    user: 'root',
     password: '',
     database: 'chatapp',
+    port: 3307
 })
 
 // Check if  connection  was succeeded
@@ -122,7 +123,7 @@ async function answerUsrdata(request, response) {
     }
 
     else if (data.type === 'sendMessages') {
-        let sendData = `INSERT INTO messages(msg_id, incoming_msg_id, incoming_user_name, outgoing_user_name,outgoing_msg_id,msg,Time,Photo) values('${data.msgId}', '${data.currentUserId}', '${data.currentUserName}','${data.chatUserName}', '${data.chatUserId}', '${data.message}', '${data.time}', '${data.photo}')`
+        let sendData = `INSERT INTO messages(msg_id, incoming_msg_id, incoming_user_name, outgoing_user_name,outgoing_msg_id,msg,Time,Photo,msg_type) values('${data.msgId}', '${data.currentUserId}', '${data.currentUserName}','${data.chatUserName}', '${data.chatUserId}', '${data.message}', '${data.time}', '${data.photo}','${data.msgType}')`
         Connection.query(sendData, (err, rows) => {
             if (err) {
                 response.json({ status: 'ko', result: 'Database error' })
