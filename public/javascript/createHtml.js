@@ -606,6 +606,12 @@ async function delChat(chatId) {
     }
 }
 
+// Clear Cookies while logging out
+async function logOut() {
+    eraseCookie('identiy', 'usrId', 'id', 'usrName')
+    location.reload()
+}
+
 
 /**
  * Hides an element
@@ -689,6 +695,13 @@ function getCookie(name) {
         if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
     }
     return null;
+}
+
+function eraseCookie(name, nsename, id, usrName) {
+    document.cookie = name + '=; Max-Age=-99999999;';
+    document.cookie = nsename + '=; Max-Age=-99999999;';
+    document.cookie = id + '=; Max-Age=-99999999;';
+    document.cookie = usrName + '=; Max-Age=-99999999;';
 }
 
 let upldMedia = `

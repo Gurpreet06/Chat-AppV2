@@ -79,7 +79,34 @@ async function loadData() {
                     usrData.innerHTML = html
                 }
             }
+        }
+    } else {
+        console.log(serverData)
+    }
+}
 
+async function sendBack() {
+    let obj = {
+        type: 'getUsrData',
+        usrid: getCookie('id'),
+        usrmail: getCookie('identiy')
+    }
+
+    try {
+        serverData = await queryServer('/queryusr', obj)
+    } catch (err) {
+        console.error(err)
+    }
+
+
+    if (serverData.status == 'ok') {
+        let rst = serverData.result
+        for (let cnt = 0; cnt < rst.length; cnt = cnt + 1) {
+            item = rst[cnt]
+            if (item.unique_id !== getCookie('usrId') && item.firstname + ' ' + item.Lastname !== getCookie('usrName') || getCookie('usrName') === null && getCookie('usrId') === null) {
+                location.href = './index.html'
+                console.log('ssds')
+            }
         }
     } else {
         console.log(serverData)
