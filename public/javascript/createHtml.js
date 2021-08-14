@@ -606,6 +606,7 @@ async function delChat(chatId) {
     }
 }
 
+
 /**
  * Hides an element
  * @param {id} id of the element to hide
