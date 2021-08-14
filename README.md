@@ -29,6 +29,10 @@ npm run supervisor
 
 ## Captures
 
-Home Page
+Home page
+
+![Photos](public/images/gitCap/Preview1.JPG)
+
+Chat interface page
 
 ![Photos](public/images/gitCap/Previews0.JPG)
