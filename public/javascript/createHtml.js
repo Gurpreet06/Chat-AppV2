@@ -312,7 +312,6 @@ async function getUserChats() {
         if (rst.length !== 0) {
             for (let cnt = 0; cnt < rst.length; cnt = cnt + 1) {
                 let item = rst[cnt]
-                console.log(item)
                 if (item.msg_type === 'Message') {
                     if (item.incoming_msg_id == getCookie('usrId')) {
                         html = html + template
@@ -363,6 +362,7 @@ async function getUserChats() {
 async function getConnectedUsers() {
     let usrChatList = document.getElementById('usrChatList')
     let getConnectUsr = document.getElementById('getConnectUsr')
+    let serverData = {}
 
     let obj = {
         type: 'getConnectedUsers',
@@ -552,17 +552,21 @@ async function querySendFile() {
     } catch (err) {
         console.error(err)
     }
-
+    let url = document.URL
+    console.log(url)
+    location.href = url
 
     await wait(900)
     await hideElement('boxSpinner')
     await showElement('boxOk')
 
-    if (serverData.status == 'ok') {
+
+
+    if (serverData.status === 'ok') {
         let url = document.URL
         location.href = url
         console.log(url)
-        // history.back()
+        history.back()
     }
     await wait(900)
 }
@@ -651,8 +655,6 @@ function getCookie(name) {
     return null;
 }
 
-window.addEventListener('load', () => { searchUsers(), createMsgHtml(), getConnectedUsers() })
-
 let upldMedia = `
 <form action="/mainPage.html" method="POST" enctype="multipart/form-data" autocomplete="off">
 <div class="wrapper" id="upSideDown">
@@ -663,7 +665,7 @@ let upldMedia = `
     </div>
     <div class="uplodDiv">
         <div class="field image">
-            <input type="file" class="file" name="sampleFile" style="display: none;" id="photoInpt" required
+            <input type="file" class="file" name="sampleFile" style="display: none;" accept="image/png, image/gif, image/jpeg" id="photoInpt" required
                 onchange="checkFile()">
         </div>
     </div>
@@ -731,3 +733,6 @@ let getMd = `
 
 let getMedias = document.getElementById('getMedias')
 getMedias.innerHTML = getMd
+
+
+window.addEventListener('load', () => { searchUsers(), createMsgHtml(), getConnectedUsers() })
