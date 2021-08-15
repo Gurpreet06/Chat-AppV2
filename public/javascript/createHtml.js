@@ -298,7 +298,7 @@ let rightUsrChat = `
         </div>
     </div>
 </div>
-<img src='{{igMedia}}' width='100%' style='display: {{none}}'>
+<img src='{{igMedia}}' width='100%' style='display: {{none}}; margin-top: 20px;'>
 </div>
 `
 
@@ -550,7 +550,7 @@ async function querySendFile() {
 
 
     let obj = {
-        type: 'sendMessages',
+        type: 'sendMedias',
         msgId: ranApla,
         currentUserId: getCookie('usrId'),
         currentUserName: getCookie('usrName'),
@@ -559,7 +559,8 @@ async function querySendFile() {
         message: 'images/Medias/' + currentMedia.innerHTML,
         time: date + ' ' + n,
         photo: currentUserImg.src,
-        msgType: 'Media'
+        msgType: 'Media',
+        currentUR: thisURL
     }
 
     try {
@@ -567,21 +568,18 @@ async function querySendFile() {
     } catch (err) {
         console.error(err)
     }
-    let url = document.URL
-    console.log(url)
-    location.href = url
 
     await wait(900)
     await hideElement('boxSpinner')
     await showElement('boxOk')
-
-
+    let url = document.URL
+    location.href = url
 
     if (serverData.status === 'ok') {
         let url = document.URL
         location.href = url
         console.log(url)
-        history.back()
+        // history.back()
     }
     await wait(900)
 }
