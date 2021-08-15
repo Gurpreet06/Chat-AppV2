@@ -108,7 +108,6 @@ async function checkUsd() {
             if (item.unique_id !== getCookie('usrId') || item.firstname + ' ' + item.Lastname !== getCookie('usrName')) {
                 CollectAll.style.display = 'none'
                 CollectAll.innerHTML = ''
-                console.log('sa')
             }
         }
     } else {
