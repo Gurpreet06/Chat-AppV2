@@ -17,34 +17,36 @@
 </head>
 
 <body>
-    <div class="menu" id="MenuHome"> </div>
-    <div id="UsrInfo" class="drawer" onclick="setDrawer('UsrInfo', false, event)"> </div>
+    <div id="CollectAll">
+        <div class="menu" id="MenuHome"> </div>
+        <div id="UsrInfo" class="drawer" onclick="setDrawer('UsrInfo', false, event)"> </div>
 
-    <div class="socailMsg">
-        <div class="clientList">
-            <div class="Clients">
-                <div class="searchBar">
-                    <input type="text" placeholder="Search.." name="search" id="SearchUsersVal"
-                        onkeyup="searchUsers(this.value)">
-                    <ion-icon name="close-outline" id="closeSearchBar" style="display: none;"></ion-icon>
-                </div>
-
-                <div class="Searchwrapper" id='Searchwrapper' style="display: none;"> </div>
-            </div>
-
-            <div class="userLists" id="usrChatList">
-                <div>
-                    <div class="usrDetail">
-                        <h5 id="myChats">My Chats</h5>
+        <div class="socailMsg">
+            <div class="clientList">
+                <div class="Clients">
+                    <div class="searchBar">
+                        <input type="text" placeholder="Search.." name="search" id="SearchUsersVal"
+                            onkeyup="searchUsers(this.value)">
+                        <ion-icon name="close-outline" id="closeSearchBar" style="display: none;"></ion-icon>
                     </div>
+
+                    <div class="Searchwrapper" id='Searchwrapper' style="display: none;"> </div>
                 </div>
-                <div id="getConnectUsr"> </div>
+
+                <div class="userLists" id="usrChatList">
+                    <div>
+                        <div class="usrDetail">
+                            <h5 id="myChats">My Chats</h5>
+                        </div>
+                    </div>
+                    <div id="getConnectUsr"> </div>
+                </div>
             </div>
+            <div id="userChatIndex"> </div>
         </div>
-        <div id="userChatIndex"> </div>
+        <div id="uploadMedias"> </div>
+        <div id="getMedias"> </div>
     </div>
-    <div id="uploadMedias"> </div>
-    <div id="getMedias"> </div>
 </body>
 
 </html>

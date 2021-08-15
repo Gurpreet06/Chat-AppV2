@@ -603,13 +603,6 @@ async function delChat(fileId, fileName) {
     }
 }
 
-// Clear Cookies while logging out
-async function logOut() {
-    eraseCookie('identiy', 'usrId', 'id', 'usrName')
-    location.reload()
-}
-
-
 /**
  * Hides an element
  * @param {id} id of the element to hide

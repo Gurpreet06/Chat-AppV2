@@ -85,7 +85,9 @@ async function loadData() {
     }
 }
 
-async function sendBack() {
+// Clear Cookies while logging out
+async function checkUsd() {
+    let CollectAll = document.getElementById('CollectAll')
     let obj = {
         type: 'getUsrData',
         usrid: getCookie('id'),
@@ -103,13 +105,21 @@ async function sendBack() {
         let rst = serverData.result
         for (let cnt = 0; cnt < rst.length; cnt = cnt + 1) {
             item = rst[cnt]
-            if (item.unique_id !== getCookie('usrId') && item.firstname + ' ' + item.Lastname !== getCookie('usrName') || getCookie('usrName') === null && getCookie('usrId') === null) {
-                location.href = './index.html'
-                console.log('ssds')
+            if (item.unique_id !== getCookie('usrId') || item.firstname + ' ' + item.Lastname !== getCookie('usrName')) {
+                CollectAll.style.display = 'none'
+                CollectAll.innerHTML = ''
+                console.log('sa')
             }
         }
     } else {
         console.log(serverData)
+    }
+}
+
+
+async function sendBack() {
+    if (getCookie('identiy') === null && getCookie('id') === null) {
+        location.href = './index.html'
     }
 }
 
@@ -163,4 +173,8 @@ async function queryServer(url, obj) {
     })
 }
 
-window.addEventListener('load', () => { loadData() })
+window.addEventListener('load', () => { loadData(), sendBack(), checkUsd() })
+
+setInterval(() => {
+    sendBack(), checkUsd()
+}, 1500);
