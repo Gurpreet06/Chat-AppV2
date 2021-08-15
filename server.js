@@ -203,16 +203,12 @@ async function answerUsrdata(request, response) {
 
     else if (data.type === 'DelMessages') {
         if (data.msgName !== '{{igMedia}}') {
-            console.log(data)
             let filePath = 'public/' + data.msgName
             try {
                 fs.unlinkSync(filePath)
             } catch (err) {
                 console.error(err)
             }
-
-        } else {
-            console.log('this is a message')
         }
 
         let getData = `delete from messages where msg_id = '${data.msgId}'`
