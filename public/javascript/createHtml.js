@@ -291,7 +291,7 @@ let rightUsrChat = `
     <span>{{igMsg}} </span>
     <div class="dropdown">
         <div class="dropdown-content">
-            <button class="downlaod" id='{{igId}}' onclick='delChat(this.id)'>Delete Message</button>
+            <button class="downlaod" id='{{igId}}' value='{{igMedia}}' onclick='delChat(this.id, this.value)'>Delete Message</button>
         </div>
         <div>
          <ion-icon name="ellipsis-vertical-outline" class='showMsgOp'></ion-icon>
@@ -578,17 +578,17 @@ async function querySendFile() {
     if (serverData.status === 'ok') {
         let url = document.URL
         location.href = url
-        console.log(url)
         // history.back()
     }
     await wait(900)
 }
 
 // Delete Messages
-async function delChat(chatId) {
+async function delChat(fileId, fileName) {
     let obj = {
         type: 'DelMessages',
-        msgId: chatId,
+        msgId: fileId,
+        msgName: fileName
     }
 
     try {

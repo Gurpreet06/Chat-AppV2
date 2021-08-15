@@ -1,5 +1,6 @@
 let express = require('express')
 const md5 = require('md5')
+const fs = require('fs')
 const upload = require('express-fileupload')
 const mysql = require('mysql2')
 const SocketIO = require('socket.io')
@@ -143,7 +144,7 @@ async function answerUsrdata(request, response) {
             let uploadPath = __dirname + '/public/images/Medias/' + sampleFile.name;
             await wait(1000)
             await sampleFile.mv(uploadPath)
-        
+
             res.redirect(data.currentUR);
         });
 
@@ -201,6 +202,19 @@ async function answerUsrdata(request, response) {
     }
 
     else if (data.type === 'DelMessages') {
+        if (data.msgName !== '{{igMedia}}') {
+            console.log(data)
+            let filePath = 'public/' + data.msgName
+            try {
+                fs.unlinkSync(filePath)
+            } catch (err) {
+                console.error(err)
+            }
+
+        } else {
+            console.log('this is a message')
+        }
+
         let getData = `delete from messages where msg_id = '${data.msgId}'`
 
         Connection.query(getData, (err, rows) => {
