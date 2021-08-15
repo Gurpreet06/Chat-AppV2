@@ -838,3 +838,10 @@ ion-icon {
   color: white;
   margin: 0;
 }
+
+.noUsrs{
+  text-align: center;
+  margin: 20px;
+  color: darkgrey;
+  user-select: none;
+}

@@ -61,9 +61,8 @@ async function searchUsers(val) {
                     .replaceAll(/{{name}}/g, item.firstname + ' ' + item.Lastname)
                     .replaceAll(/{{img}}/g, item.photo)
                     .replaceAll(/{{caseId}}/g, item.unique_id)
-            }
-            if (item.firstname.indexOf(val) === -1) {
-                SearchUsersVal.innerHTML = `<p>No User Found</p>`
+            } else {
+                Searchwrapper.innerHTML = `<p class='noUsrs'>No User Found</p>`
             }
         }
 
@@ -290,7 +289,7 @@ let rightUsrChat = `
 <div class='msgOptions'>
     <span>{{igMsg}} </span>
     <div class="dropdown">
-        <div class="dropdown-content">
+        <div class="dropdown-content" style='left: 34px;'>
             <button class="downlaod" id='{{igId}}' value='{{igMedia}}' onclick='delChat(this.id, this.value)'>Delete Message</button>
         </div>
         <div>
