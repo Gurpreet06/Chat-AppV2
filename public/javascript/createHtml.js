@@ -307,10 +307,7 @@ socket.on('chat:message', (data) => {
     let leftUsr = leftChatMsg
     let html = ''
 
-
     if (data.chatUserId === thisPosId && data.currentUserId === getCookie('usrId') || data.chatUserId === getCookie('usrId') && data.currentUserId === thisPosId) {
-        console.log(data)
-
         if (data.currentUserId == getCookie('usrId')) {
             html = html + template
                 .replaceAll('{{imgPhoto}}', data.photo)
@@ -327,9 +324,7 @@ socket.on('chat:message', (data) => {
                 .replaceAll('{{igMsg}}', data.message)
                 .replaceAll('{{none}}', 'none')
         }
-
         appendChat.innerHTML += html
-
 
     }
 
