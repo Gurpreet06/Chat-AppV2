@@ -301,6 +301,40 @@ let rightUsrChat = `
 </div>
 `
 
+socket.on('chat:message', (data) => {
+    let appendChat = document.getElementById('appendChat')
+    let template = rightUsrChat
+    let leftUsr = leftChatMsg
+    let html = ''
+
+
+    if (data.chatUserId === thisPosId && data.currentUserId === getCookie('usrId') || data.chatUserId === getCookie('usrId') && data.currentUserId === thisPosId) {
+        console.log(data)
+
+        if (data.currentUserId == getCookie('usrId')) {
+            html = html + template
+                .replaceAll('{{imgPhoto}}', data.photo)
+                .replaceAll('{{UsrName}}', data.currentUserName)
+                .replaceAll('{{igTime}}', data.time)
+                .replaceAll('{{igMsg}}', data.message)
+                .replaceAll('{{none}}', 'none')
+                .replaceAll('{{igId}}', data.msgId)
+        } else {
+            html = html + leftUsr
+                .replaceAll('{{imgPhoto}}', data.photo)
+                .replaceAll('{{UsrName}}', data.currentUserName)
+                .replaceAll('{{igTime}}', data.time)
+                .replaceAll('{{igMsg}}', data.message)
+                .replaceAll('{{none}}', 'none')
+        }
+
+        appendChat.innerHTML += html
+
+
+    }
+
+})
+
 async function getUserChats() {
     let appendChat = document.getElementById('appendChat')
     let html = ''
