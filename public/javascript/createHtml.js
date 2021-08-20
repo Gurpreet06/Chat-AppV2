@@ -615,11 +615,6 @@ async function querySendFile() {
     await wait(900)
 }
 
-socket.on('chat:delete', (data) => {
-    if (data.chatUserId === thisPosId && data.currentUserId === getCookie('usrId') || data.chatUserId === getCookie('usrId') && data.currentUserId === thisPosId) {
-        getUserChats()
-    }
-})
 
 // Delete Messages
 async function delChat(fileId, fileName) {
@@ -645,6 +640,13 @@ async function delChat(fileId, fileName) {
         console.log(serverData)
     }
 }
+
+socket.on('chat:delete', (data) => {
+    if (data.chatUserId === thisPosId && data.currentUserId === getCookie('usrId') || data.chatUserId === getCookie('usrId') && data.currentUserId === thisPosId) {
+        getUserChats()
+    }
+})
+
 
 /**
  * Hides an element
