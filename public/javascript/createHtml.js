@@ -257,7 +257,8 @@ async function sendMessages(evt) {
             chatUserName: chatUsrName.innerHTML,
             message: chatMessage.value,
             time: date + ' ' + n,
-            photo: currentUserImg.src
+            photo: currentUserImg.src,
+            msgType: 'Message'
         })
         chatMessage.value = ''
         getUserChats()
@@ -307,6 +308,7 @@ socket.on('chat:message', (data) => {
     let leftUsr = leftChatMsg
     let html = ''
 
+    console.log(data)
     if (data.chatUserId === thisPosId && data.currentUserId === getCookie('usrId') || data.chatUserId === getCookie('usrId') && data.currentUserId === thisPosId) {
         if (data.currentUserId == getCookie('usrId')) {
             html = html + template
@@ -325,7 +327,7 @@ socket.on('chat:message', (data) => {
                 .replaceAll('{{none}}', 'none')
         }
         appendChat.innerHTML += html
-
+        getUserChats()
     }
 
 })
@@ -597,6 +599,8 @@ async function querySendFile() {
         console.error(err)
     }
 
+
+
     await wait(900)
     await hideElement('boxSpinner')
     await showElement('boxOk')
@@ -610,6 +614,12 @@ async function querySendFile() {
     }
     await wait(900)
 }
+
+socket.on('chat:delete', (data) => {
+    if (data.chatUserId === thisPosId && data.currentUserId === getCookie('usrId') || data.chatUserId === getCookie('usrId') && data.currentUserId === thisPosId) {
+        getUserChats()
+    }
+})
 
 // Delete Messages
 async function delChat(fileId, fileName) {
@@ -627,6 +637,10 @@ async function delChat(fileId, fileName) {
 
     if (serverData.status == 'ok') {
         getUserChats()
+        socket.emit('chat:delete', {
+            currentUserId: getCookie('usrId'),
+            chatUserId: thisPosId,
+        })
     } else {
         console.log(serverData)
     }

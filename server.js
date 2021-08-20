@@ -42,6 +42,10 @@ async function main() {
         socket.on('chat:message', (data) => {
             io.sockets.emit('chat:message', data)
         })
+
+        socket.on('chat:delete', (data) => {
+            io.sockets.emit('chat:delete', data)
+        })
     })
 }
 
