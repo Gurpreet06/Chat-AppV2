@@ -592,6 +592,12 @@ async function querySendFile() {
         msgType: 'Media',
         currentUR: thisURL
     }
+    socket.emit('chat:media', {
+        currentUserId: getCookie('usrId'),
+        chatUserId: thisPosId,
+        messageTypo: 'Media'
+    })
+
 
     try {
         serverData = await queryServer('/queryusr', obj)
@@ -599,13 +605,13 @@ async function querySendFile() {
         console.error(err)
     }
 
-
-
     await wait(900)
     await hideElement('boxSpinner')
     await showElement('boxOk')
-    let url = document.URL
-    location.href = url
+
+    /* let url = document.URL
+     location.href = url
+ */
 
     if (serverData.status === 'ok') {
         let url = document.URL
@@ -614,7 +620,11 @@ async function querySendFile() {
     }
     await wait(900)
 }
-
+socket.on('chat:media', (data) => {
+    if (data.chatUserId === thisPosId && data.currentUserId === getCookie('usrId') || data.chatUserId === getCookie('usrId') && data.currentUserId === thisPosId) {
+        getUserChats()
+    }
+})
 
 // Delete Messages
 async function delChat(fileId, fileName) {
