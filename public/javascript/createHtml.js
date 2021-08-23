@@ -577,7 +577,7 @@ async function querySendFile() {
     let chatUsrName = document.getElementById('charUsrName')
     let currentUserImg = document.getElementById('currentUserImg')
     let ranApla = getRandomId() + randomAlphaId(6)
-
+    let serverData = {}
 
     let obj = {
         type: 'sendMedias',
@@ -594,23 +594,24 @@ async function querySendFile() {
     }
 
     try {
-        serverData = await queryServer('/queryusr', obj)
+        serverData = queryServer('/queryusr', obj)
     } catch (err) {
         console.error(err)
     }
 
-    await wait(900)
-    await hideElement('boxSpinner')
-    await showElement('boxOk')
+    socket.emit('chat:media', {
+        currentUserId: getCookie('usrId'),
+        chatUserId: thisPosId,
+        messageTypo: 'Media'
+    })
 
-    if (serverData.status === 'ok') {
+    if (serverData.status == 'ok') {
         socket.emit('chat:media', {
             currentUserId: getCookie('usrId'),
             chatUserId: thisPosId,
             messageTypo: 'Media'
         })
     }
-    await wait(900)
 }
 socket.on('chat:media', (data) => {
     if (data.chatUserId === thisPosId && data.currentUserId === getCookie('usrId') || data.chatUserId === getCookie('usrId') && data.currentUserId === thisPosId) {
