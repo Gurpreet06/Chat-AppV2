@@ -292,6 +292,9 @@ let rightUsrChat = `
     <div class="dropdown">
         <div class="dropdown-content" style='left: 34px;'>
             <button class="downlaod" id='{{igId}}' value='{{igMedia}}' onclick='delChat(this.id, this.value)'>Delete Message</button>
+            <div>
+                {{downloadBn}}
+            </div>
         </div>
         <div>
          <ion-icon name="ellipsis-vertical-outline" class='showMsgOp'></ion-icon>
@@ -364,6 +367,7 @@ async function getUserChats() {
                             .replaceAll('{{igMsg}}', item.msg)
                             .replaceAll('{{none}}', 'none')
                             .replaceAll('{{igId}}', item.msg_id)
+                            .replaceAll('{{downloadBn}}', ``)
                     } else {
                         html = html + leftUsr
                             .replaceAll('{{imgPhoto}}', item.Photo)
@@ -382,6 +386,7 @@ async function getUserChats() {
                             .replaceAll('{{igMedia}}', item.msg)
                             .replaceAll('{{none}}', 'block')
                             .replaceAll('{{igId}}', item.msg_id)
+                            .replaceAll('{{downloadBn}}', `<button class='downlaod' onclick='downloadMedia("${item.Photo}")'>Download Image</button>`)
                     } else {
                         html = html + leftUsr
                             .replaceAll('{{imgPhoto}}', item.Photo)
@@ -654,6 +659,21 @@ socket.on('chat:delete', async (data) => {
     }
 })
 
+// Download Media
+async function downloadMedia(fileName) {
+     let serverData = {}
+ 
+     let obj = {
+         type: 'DownMedia',
+         names: fileName,
+     }
+ 
+     try {
+         serverData = await queryServer('/queryusr', obj)
+     } catch (err) {
+         console.error(err)
+     }
+}
 
 /**
  * Hides an element
