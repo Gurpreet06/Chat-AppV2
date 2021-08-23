@@ -592,12 +592,6 @@ async function querySendFile() {
         msgType: 'Media',
         currentUR: thisURL
     }
-    socket.emit('chat:media', {
-        currentUserId: getCookie('usrId'),
-        chatUserId: thisPosId,
-        messageTypo: 'Media'
-    })
-
 
     try {
         serverData = await queryServer('/queryusr', obj)
@@ -609,14 +603,12 @@ async function querySendFile() {
     await hideElement('boxSpinner')
     await showElement('boxOk')
 
-    /* let url = document.URL
-     location.href = url
- */
-
     if (serverData.status === 'ok') {
-        let url = document.URL
-        location.href = url
-        // history.back()
+        socket.emit('chat:media', {
+            currentUserId: getCookie('usrId'),
+            chatUserId: thisPosId,
+            messageTypo: 'Media'
+        })
     }
     await wait(900)
 }
