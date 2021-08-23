@@ -313,7 +313,6 @@ socket.on('chat:message', (data) => {
     let leftUsr = leftChatMsg
     let html = ''
 
-    console.log(data)
     if (data.chatUserId === thisPosId && data.currentUserId === getCookie('usrId') || data.chatUserId === getCookie('usrId') && data.currentUserId === thisPosId) {
         if (data.currentUserId == getCookie('usrId')) {
             html = html + template
