@@ -613,8 +613,12 @@ async function querySendFile() {
         })
     }
 }
-socket.on('chat:media', (data) => {
+socket.on('chat:media', async (data) => {
     if (data.chatUserId === thisPosId && data.currentUserId === getCookie('usrId') || data.chatUserId === getCookie('usrId') && data.currentUserId === thisPosId) {
+        getUserChats()
+        await wait(1000)
+        getUserChats()
+        await wait(1000)
         getUserChats()
     }
 })
@@ -644,7 +648,7 @@ async function delChat(fileId, fileName) {
     }
 }
 
-socket.on('chat:delete', (data) => {
+socket.on('chat:delete', async (data) => {
     if (data.chatUserId === thisPosId && data.currentUserId === getCookie('usrId') || data.chatUserId === getCookie('usrId') && data.currentUserId === thisPosId) {
         getUserChats()
     }
