@@ -292,9 +292,11 @@ let rightUsrChat = `
     <div class="dropdown">
         <div class="dropdown-content" style='left: 34px;'>
             <button class="downlaod" id='{{igId}}' value='{{igMedia}}' onclick='delChat(this.id, this.value)'>Delete Message</button>
-            <div>
-                {{downloadBn}}
-            </div>
+            <form action="/downloadUpFile" method="GET" enctype="multipart/form-data" > 
+                <div>
+                    {{downloadBn}}
+                </div>
+            </form> 
         </div>
         <div>
          <ion-icon name="ellipsis-vertical-outline" class='showMsgOp'></ion-icon>
@@ -661,18 +663,25 @@ socket.on('chat:delete', async (data) => {
 
 // Download Media
 async function downloadMedia(fileName) {
-     let serverData = {}
- 
-     let obj = {
-         type: 'DownMedia',
-         names: fileName,
-     }
- 
-     try {
-         serverData = await queryServer('/queryusr', obj)
-     } catch (err) {
-         console.error(err)
-     }
+    let serverData = {}
+    let getIndexImg = fileName.indexOf('8000')
+    let getText = fileName.substring(getIndexImg + 4)
+    console.log(getText)
+
+    let obj = {
+        type: 'DownMedia',
+        ImgName: getText,
+    }
+
+    try {
+        serverData = await queryServer('/queryusr', obj)
+    } catch (err) {
+        console.error(err)
+    }
+
+    if (serverData.status === 'ok') {
+        console.log(serverData)
+    }
 }
 
 /**

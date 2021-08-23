@@ -227,6 +227,15 @@ async function answerUsrdata(request, response) {
             }
         })
     }
+
+    else if (data.type == 'DownMedia') {
+        rst = { status: 'ok' }
+        fileNames = data.ImgName
+        app.get('/downloadUpFile', function (req, res) {
+            let joinSting = '/public' + fileNames
+            res.download(__dirname + `${joinSting}`)
+        })
+    }
 }
 
 // Upload Servicios
