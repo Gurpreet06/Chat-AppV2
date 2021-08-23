@@ -232,7 +232,7 @@ async function answerUsrdata(request, response) {
         rst = { status: 'ok' }
         fileNames = data.ImgName
         app.get('/downloadUpFile', function (req, res) {
-            let joinSting = '/public' + fileNames
+            let joinSting = '/public/' + fileNames
             res.download(__dirname + `${joinSting}`)
         })
     }

@@ -388,7 +388,7 @@ async function getUserChats() {
                             .replaceAll('{{igMedia}}', item.msg)
                             .replaceAll('{{none}}', 'block')
                             .replaceAll('{{igId}}', item.msg_id)
-                            .replaceAll('{{downloadBn}}', `<button class='downlaod' onclick='downloadMedia("${item.Photo}")'>Download Image</button>`)
+                            .replaceAll('{{downloadBn}}', `<button class='downlaod' onclick='downloadMedia("${item.msg}")'>Download Image</button>`)
                     } else {
                         html = html + leftUsr
                             .replaceAll('{{imgPhoto}}', item.Photo)
@@ -664,13 +664,10 @@ socket.on('chat:delete', async (data) => {
 // Download Media
 async function downloadMedia(fileName) {
     let serverData = {}
-    let getIndexImg = fileName.indexOf('8000')
-    let getText = fileName.substring(getIndexImg + 4)
-    console.log(getText)
 
     let obj = {
         type: 'DownMedia',
-        ImgName: getText,
+        ImgName: fileName,
     }
 
     try {
