@@ -368,6 +368,7 @@ async function getUserChats() {
                             .replaceAll('{{igMsg}}', item.msg)
                             .replaceAll('{{none}}', 'none')
                             .replaceAll('{{igId}}', item.msg_id)
+                            .replaceAll('{{downloadBn}}', '')
                     } else {
                         html = html + leftUsr
                             .replaceAll('{{imgPhoto}}', item.Photo)
@@ -375,7 +376,6 @@ async function getUserChats() {
                             .replaceAll('{{igTime}}', item.Time)
                             .replaceAll('{{igMsg}}', item.msg)
                             .replaceAll('{{none}}', 'none')
-                            .replaceAll('{{donwloadPhoto}}', '')
                     }
                 } else if (item.msg_type === 'Media') {
                     if (item.incoming_msg_id == getCookie('usrId')) {
