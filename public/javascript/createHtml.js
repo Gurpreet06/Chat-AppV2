@@ -605,7 +605,7 @@ async function querySendFile() {
         messageTypo: 'Media'
     })
 
-    if (serverData.status == 'ok') {
+    if (serverData.status === 'ok') {
         socket.emit('chat:media', {
             currentUserId: getCookie('usrId'),
             chatUserId: thisPosId,
