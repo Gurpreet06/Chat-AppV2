@@ -49,7 +49,6 @@ async function main() {
 
         socket.on('chat:media', (data) => {
             io.sockets.emit('chat:media', data)
-            console.log('This is a media data', data)
         })
     })
 }
