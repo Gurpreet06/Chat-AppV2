@@ -50,6 +50,10 @@ async function main() {
         socket.on('chat:media', (data) => {
             io.sockets.emit('chat:media', data)
         })
+
+        socket.on('chat:type', (data) => {
+            io.sockets.emit('chat:media', data)
+        })
     })
 }
 

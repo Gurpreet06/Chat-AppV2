@@ -112,7 +112,7 @@ let noChats = `
 let chatHtml = `        <div class="usrChat">
 <div class="usrDetail">
     <h5 style='font-size: 28px;' id='charUsrName'>{{UsrName}}</h5>
-    <p class='onlineStatus'>{{OnlineStatus}} <ion-icon name="ellipse-outline" class='onlineStatus' style='color: {{OnlineStatusBack}}; background-color: {{OnlineStatusBack}};'></ion-icon></p>
+    <p class='onlineStatus' id='UsronlineStatus'>{{OnlineStatus}} <ion-icon name="ellipse-outline" class='onlineStatus' style='color: {{OnlineStatusBack}}; background-color: {{OnlineStatusBack}};'></ion-icon></p>
 </div>
 <div>
     <ion-icon name="list-outline" class='ChatOp'></ion-icon>
@@ -127,7 +127,7 @@ let chatHtml = `        <div class="usrChat">
     </div>
     <div>
         <div class="main__message_container">
-            <textarea id="chat_message" type="text" autocomplete="off" cols="30" rows="10" placeholder="Type message here..."></textarea>
+            <textarea id="chat_message" type="text" autocomplete="off" cols="30" rows="10" placeholder="Type message here..." onkeyup='showType(this.value)'></textarea>
             <div id="sendMsg" class="options__button">
                 <div class="dropdown">
                     <div class="dropdown-content">
@@ -691,6 +691,25 @@ async function downloadMedia(fileName) {
         console.log(serverData)
     }
 }
+
+// Show first user when another user is typing something
+async function showType(typeValue) {
+    socket.emit('chat:type', {
+        currentUserId: getCookie('usrId'),
+        chatUserId: thisPosId,
+        chatMsg: typeValue
+    })
+}
+
+socket.on('chat:media', async (data) => {
+    if (data.chatUserId === getCookie('usrId') && data.currentUserId === thisPosId) {
+        if (data.chatMsg !== '') {
+            UsronlineStatus.innerHTML = 'Typing ...'
+        } else if (data.chatMsg === '') {
+            createMsgHtml()
+        }
+    }
+})
 
 /**
  * Hides an element
