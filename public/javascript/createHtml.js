@@ -533,8 +533,8 @@ async function closeMediaDiv() {
 }
 
 let mediaTemp = ` <div>
-<img src="{{imgMedia}}" class="mediaImg">
-<h5>{{UsrName}}</h5>
+<img src="{{imgMedia}}" class="mediaImg" style='display: {{block}}'>
+<h5 style='display: {{block}}'>{{UsrName}}</h5>
 </div>`
 
 async function getMediaDB() {
@@ -570,9 +570,6 @@ async function getMediaDB() {
                         html = html + template
                             .replaceAll('{{UsrName}}', item.incoming_user_name)
                             .replaceAll('{{imgMedia}}', item.msg)
-                        getAllMedia.innerHTML = html
-                    } else {
-                        let noMsg = `<p>No media has been shared yet!</p>`
                     }
                 }
                 getAllMedia.innerHTML = html
