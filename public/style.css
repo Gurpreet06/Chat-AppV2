@@ -839,9 +839,26 @@ ion-icon {
   margin: 0;
 }
 
-.noUsrs{
+.noUsrs {
   text-align: center;
   margin: 20px;
   color: darkgrey;
   user-select: none;
+}
+
+.onlineStatus {
+  display: flex;
+  align-items: center;
+  color: darkgrey;
+  font-size: 14px;
+  margin-left: 6px;
+}
+
+.onlineStatus > ion-icon {
+  margin-right: 0;
+  margin-left: 13px;
+  background-color: green;
+  border-radius: 50px;
+  color: green;
+  font-size: 13px;
 }

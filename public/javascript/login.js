@@ -20,7 +20,7 @@ async function checkForm() {
 async function queryLogIn() {
     await hideElement('formButton')
     await showElement('boxSpinner')
-    await wait(3000)
+    await wait(3500)
     await hideElement('boxSpinner')
     await showElement('boxError')
     await wait(2000)

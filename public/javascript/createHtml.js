@@ -112,6 +112,7 @@ let noChats = `
 let chatHtml = `        <div class="usrChat">
 <div class="usrDetail">
     <h5 style='font-size: 28px;' id='charUsrName'>{{UsrName}}</h5>
+    <p class='onlineStatus'>Online <ion-icon name="ellipse-outline" class='onlineStatus'></ion-icon></p>
 </div>
 <div>
     <ion-icon name="list-outline" class='ChatOp'></ion-icon>
