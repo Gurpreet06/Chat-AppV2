@@ -236,6 +236,30 @@ async function answerUsrdata(request, response) {
             res.download(__dirname + `${joinSting}`)
         })
     }
+
+    else if (data.type == 'userStatusChange') {
+        let setData = `update users set status='Online' where unique_id='${data.uniUserId}'`
+        Connection.query(setData, (err, rows) => {
+            if (err) {
+                response.json({ status: 'ko', result: rows })
+                console.log(err)
+            } else {
+                response.json({ status: 'ok', result: rows })
+            }
+        })
+    }
+
+    else if (data.type == 'userStatusOff') {
+        let setData = `update users set status='Offline' where unique_id='${data.uniUserId}'`
+        Connection.query(setData, (err, rows) => {
+            if (err) {
+                response.json({ status: 'ko', result: rows })
+                console.log(err)
+            } else {
+                response.json({ status: 'ok', result: rows })
+            }
+        })
+    }
 }
 
 // Upload Servicios

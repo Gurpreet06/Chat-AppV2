@@ -194,7 +194,6 @@ async function createMsgHtml() {
         if (serverData.result.length === 0) {
             userChatIndex.innerHTML = nousrSlec
         } else if (serverData.result[0].unique_id === thisPosId) {
-            console.log(serverData.result)
             if (serverData.result[0].Status === 'Online') {
                 html = html + temp
                     .replaceAll(/{{UsrName}}/g, serverData.result[0].firstname + ' ' + serverData.result[0].Lastname)

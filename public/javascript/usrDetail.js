@@ -77,6 +77,18 @@ async function loadData() {
                 if (item.unique_id === getCookie('usrId') && item.firstname + ' ' + item.Lastname === getCookie('usrName')) {
                     //Asignar datos
                     usrData.innerHTML = html
+
+                    let serverDta = {}
+                    let obj = {
+                        type: 'userStatusChange',
+                        uniUserId: getCookie('usrId')
+                    }
+
+                    try {
+                        serverDta = await queryServer('/queryusr', obj)
+                    } catch (err) {
+                        console.error(err)
+                    }
                 }
             }
         }
@@ -123,6 +135,19 @@ async function sendBack() {
 }
 
 async function logOut() {
+    let serverDta = {}
+    let obj = {
+        type: 'userStatusOff',
+        uniUserId: getCookie('usrId')
+    }
+
+    try {
+        serverDta = await queryServer('/queryusr', obj)
+    } catch (err) {
+        console.error(err)
+    }
+
+    await wait(500)
     eraseCookie('identiy', 'usrId', 'id', 'usrName')
     location.reload()
 }
