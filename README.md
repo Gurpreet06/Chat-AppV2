@@ -35,4 +35,4 @@ Home page
 
 Chat interface page
 
-![Photos](public/images/gitCap/Preview0.JPG)
+![Photos](public/images/gitCap/Previews0.JPG)
