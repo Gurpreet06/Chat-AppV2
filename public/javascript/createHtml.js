@@ -112,7 +112,7 @@ let noChats = `
 let chatHtml = `        <div class="usrChat">
 <div class="usrDetail">
     <h5 style='font-size: 28px;' id='charUsrName'>{{UsrName}}</h5>
-    <p class='onlineStatus'>Online <ion-icon name="ellipse-outline" class='onlineStatus'></ion-icon></p>
+    <p class='onlineStatus'>{{OnlineStatus}} <ion-icon name="ellipse-outline" class='onlineStatus' style='color: {{OnlineStatusBack}}; background-color: {{OnlineStatusBack}};'></ion-icon></p>
 </div>
 <div>
     <ion-icon name="list-outline" class='ChatOp'></ion-icon>
@@ -194,10 +194,22 @@ async function createMsgHtml() {
         if (serverData.result.length === 0) {
             userChatIndex.innerHTML = nousrSlec
         } else if (serverData.result[0].unique_id === thisPosId) {
-            html = html + temp
-                .replaceAll(/{{UsrName}}/g, serverData.result[0].firstname + ' ' + serverData.result[0].Lastname)
-                .replaceAll(/{{UserEmail}}/g, serverData.result[0].email)
-                .replaceAll(/{{imgusr}}/g, serverData.result[0].photo)
+            console.log(serverData.result)
+            if (serverData.result[0].Status === 'Online') {
+                html = html + temp
+                    .replaceAll(/{{UsrName}}/g, serverData.result[0].firstname + ' ' + serverData.result[0].Lastname)
+                    .replaceAll(/{{UserEmail}}/g, serverData.result[0].email)
+                    .replaceAll(/{{imgusr}}/g, serverData.result[0].photo)
+                    .replaceAll(/{{OnlineStatus}}/g, serverData.result[0].Status)
+                    .replaceAll(/{{OnlineStatusBack}}/g, 'green')
+            } else if (serverData.result[0].Status === 'Offline') {
+                html = html + temp
+                    .replaceAll(/{{UsrName}}/g, serverData.result[0].firstname + ' ' + serverData.result[0].Lastname)
+                    .replaceAll(/{{UserEmail}}/g, serverData.result[0].email)
+                    .replaceAll(/{{imgusr}}/g, serverData.result[0].photo)
+                    .replaceAll(/{{OnlineStatus}}/g, serverData.result[0].Status)
+                    .replaceAll(/{{OnlineStatusBack}}/g, 'red')
+            }
 
             userChatIndex.innerHTML = html
             getUserChats()

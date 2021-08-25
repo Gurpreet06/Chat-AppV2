@@ -64,7 +64,7 @@ async function answerQuery(request, response) {
         let dataPs = md5(data.contrasenya)
         let encDt = md5(dataPs)
         let FinalDt = md5(encDt)
-        let insrtData = `INSERT INTO users(unique_id, firstname, Lastname, email, password, photo) values('${data.id}', '${data.nom}', '${data.cognom}', '${data.mail}',  '${FinalDt}', '${data.image}')`
+        let insrtData = `INSERT INTO users(unique_id, firstname, Lastname, email, password, photo, Status) values('${data.id}', '${data.nom}', '${data.cognom}', '${data.mail}',  '${FinalDt}', '${data.image}', 'Offline')`
         Connection.query(insrtData, (err, rows) => {
             if (err) throw err
         })
