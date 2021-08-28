@@ -1,6 +1,6 @@
 ## Chat App
 
-Chat App is web based application that allows us to chat with our friends and other peoples. This web page application is created with HTML, CSS, JavaScript and Nodejs and for database, I used MySQL.
+Social App is web-based application that allows us to chat with our friends and other peoples. This web page application is built with HTML, CSS, JavaScript, Nodejs and Web-Sockets. For database, I used MySQL.
 
 ### Install node dependencies
 
