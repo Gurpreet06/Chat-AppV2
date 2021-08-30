@@ -369,6 +369,7 @@ async function getUserChats() {
     if (serverData.status == 'ok') {
         let rst = serverData.result
         if (rst.length !== 0) {
+           // console.log(rst.slice(-1)[0]) Get User Last Message...
             for (let cnt = 0; cnt < rst.length; cnt = cnt + 1) {
                 let item = rst[cnt]
                 if (item.msg_type === 'Message') {
@@ -445,7 +446,8 @@ async function getConnectedUsers() {
                                         <img width="15%" src="${item.photo}">
                                         <h5 id='CurrentUser${item.unique_id}' onclick='chatWithUser(this.nextElementSibling.innerHTML,this.innerHTML)'>${item.firstname + ' ' + item.Lastname}</h5>
                                         <p style='display:none;'>${item.unique_id}</p>
-                                     </div>`
+                                     </div>
+                                     `
             if (item.unique_id === getCookie('usrId')) {
                 let usr = document.querySelector('#CurrentUser' + item.unique_id)
                 usr.innerHTML = `${item.firstname + ' ' + item.Lastname} (Me)`
