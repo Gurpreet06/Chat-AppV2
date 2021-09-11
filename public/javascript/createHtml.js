@@ -369,7 +369,7 @@ async function getUserChats() {
     if (serverData.status == 'ok') {
         let rst = serverData.result
         if (rst.length !== 0) {
-            // console.log(rst.slice(-1)[0]) Get User Last Message...
+            // console.log(rst.slice(-1)[0]) // Get User Last Message...
             for (let cnt = 0; cnt < rst.length; cnt = cnt + 1) {
                 let item = rst[cnt]
                 if (item.msg_type === 'Message') {
