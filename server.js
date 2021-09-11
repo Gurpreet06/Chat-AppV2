@@ -16,7 +16,7 @@ const Connection = mysql.createConnection({
     host: '',
     user: '',
     password: '',
-    database: 'socialapp',
+    database: 'chatapp',
 })
 
 // Check if  connection  was succeeded
