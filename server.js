@@ -152,7 +152,7 @@ async function answerUsrdata(request, response) {
             console.log(req.files); // the uploaded file object
             let sampleFile; // Input Name
             sampleFile = req.files.sampleFile;
-            let uploadPath = __dirname + '/public/images/Medias/' + sampleFile.name;
+            let uploadPath = __dirname + '/public/images/Media/' + sampleFile.name;
             await wait(1000)
             await sampleFile.mv(uploadPath)
 
