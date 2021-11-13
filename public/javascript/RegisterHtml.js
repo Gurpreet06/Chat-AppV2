@@ -43,6 +43,7 @@ function conPass() {
 
     if (refConPass.value != refFormPass.value) {
         refSpan.style.display = 'block'
+        refFormPass.setAttribute('onkeyup', "checkForm(),conPass()")
     } else {
         refSpan.style.display = 'none'
     }

@@ -14,9 +14,9 @@ let publicFolder = './public'
 // connect to mysql dataBase
 const Connection = mysql.createConnection({
     host: '',
-    user: '',
+    user: 'root',
     password: '',
-    database: 'chatapp',
+    database: 'socialapp',
 })
 
 // Check if  connection  was succeeded
