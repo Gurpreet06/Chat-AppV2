@@ -14,7 +14,7 @@ let publicFolder = './public'
 // connect to mysql dataBase
 const Connection = mysql.createConnection({
     host: '',
-    user: 'root',
+    user: '',
     password: '',
     database: 'socialapp',
 })
