@@ -435,6 +435,7 @@ async function getUserChats() {
                 }
 
                 appendChat.innerHTML = html
+                updateScroll()
             }
         } else {
             appendChat.innerHTML = noChats
@@ -677,11 +678,11 @@ async function delChat(fileId, fileName) {
     }
 
     if (serverData.status == 'ok') {
-        getUserChats()
         socket.emit('chat:delete', {
             currentUserId: getCookie('usrId'),
             chatUserId: thisPosId,
         })
+        getUserChats()
     } else {
         console.log(serverData)
     }
