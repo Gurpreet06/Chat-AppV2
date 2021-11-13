@@ -261,7 +261,7 @@ async function sendMessages(evt) {
         console.error(err)
     }
 
-    if (serverData.status == 'ok') {
+    if (serverData.status == 'msgsent') {
         socket.emit('chat:message', {
             msgId: ranApla,
             currentUserId: getCookie('usrId'),
@@ -276,9 +276,55 @@ async function sendMessages(evt) {
         chatMessage.value = ''
         updateScroll()
         getUserChats()
+        checkUserCons()
     } else {
-        console.log(serverData)
+        // console.log(serverData)
     }
+
+}
+
+async function checkUserCons() {
+    let chatUsrName = document.getElementById('charUsrName')
+    let currentUserImg = document.getElementById('currentUserImg')
+    let obj = {}
+
+    obj = {
+        type: 'checkUserCon',
+        currentUserId: getCookie('usrId'),
+        chatUserId: thisPosId,
+    }
+
+    try {
+        serverData = await queryServer('/queryusr', obj)
+    } catch (err) {
+        console.error(err)
+    }
+
+    if (serverData.status == "userAddList") {
+        if (serverData.result.length === 0) {
+            obj = {
+                type: 'addUserList',
+                currentUserId: getCookie('usrId'),
+                currentUserName: getCookie('usrName'),
+                chatUserId: thisPosId,
+                chatUserName: chatUsrName.innerHTML,
+                photo: currentUserImg.src,
+            }
+
+            try {
+                serverData = await queryServer('/queryusr', obj)
+            } catch (err) {
+                console.error(err)
+            }
+        }
+
+    }
+
+    if (serverData.status == "userAdedd") {
+        getConnectedUsers()
+    }
+
+
 
 }
 
@@ -352,7 +398,7 @@ socket.on('chat:message', (data) => {
                 .replaceAll('{{igMsg}}', data.message)
                 .replaceAll('{{none}}', 'none')
                 .replaceAll('{{igId}}', data.msgId)
-                .replaceAll('{{igMedia}}', "/images/usrProfilePhoto/userDefault.png")
+                .replaceAll('{{igMedia}}', "/images/Media/userDefault.png")
         } else {
             html = html + leftUsr
                 .replaceAll('{{imgPhoto}}', data.photo)
@@ -360,7 +406,7 @@ socket.on('chat:message', (data) => {
                 .replaceAll('{{igTime}}', data.time)
                 .replaceAll('{{igMsg}}', data.message)
                 .replaceAll('{{none}}', 'none')
-                .replaceAll('{{igMedia}}', "/images/usrProfilePhoto/userDefault.png")
+                .replaceAll('{{igMedia}}', "/images/Media/userDefault.png")
         }
         appendChat.innerHTML += html
         updateScroll()
@@ -403,7 +449,7 @@ async function getUserChats() {
                             .replaceAll('{{none}}', 'none')
                             .replaceAll('{{igId}}', item.msg_id)
                             .replaceAll('{{downloadBn}}', '')
-                            .replaceAll('{{igMedia}}', "/images/usrProfilePhoto/userDefault.png")
+                            .replaceAll('{{igMedia}}', "/images/Media/userDefault.png")
                     } else {
                         html = html + leftUsr
                             .replaceAll('{{imgPhoto}}', item.Photo)
@@ -411,7 +457,7 @@ async function getUserChats() {
                             .replaceAll('{{igTime}}', item.Time)
                             .replaceAll('{{igMsg}}', item.msg)
                             .replaceAll('{{none}}', 'none')
-                            .replaceAll('{{igMedia}}', "/images/usrProfilePhoto/userDefault.png")
+                            .replaceAll('{{igMedia}}', "/images/Media/userDefault.png")
                     }
                 } else if (item.msg_type === 'Media') {
                     if (item.incoming_msg_id == getCookie('usrId')) {
@@ -454,6 +500,8 @@ async function getConnectedUsers() {
 
     let obj = {
         type: 'getConnectedUsers',
+        currentUserId: getCookie('usrId'),
+        currentUserName: getCookie('usrName'),
     }
 
     try {
@@ -466,16 +514,26 @@ async function getConnectedUsers() {
         let rst = serverData.result
         for (let cnt = 0; cnt < rst.length; cnt = cnt + 1) {
             let item = rst[cnt]
-            getConnectUsr.innerHTML += `  <div class="PersonsGrp">
+            if (item.unique_reciever === getCookie('usrId')) {
+                getConnectUsr.innerHTML += `  <div class="PersonsGrp">
                                         <img width="15%" src="${item.photo}">
-                                        <h5 id='CurrentUser${item.unique_id}' onclick='chatWithUser(this.nextElementSibling.innerHTML,this.innerHTML)'>${item.firstname + ' ' + item.Lastname}</h5>
-                                        <p style='display:none;'>${item.unique_id}</p>
+                                        <h5 id='CurrentUser${item.unique_sender}' onclick='chatWithUser(this.nextElementSibling.innerHTML,this.innerHTML)'>${item.unique_sender_name}</h5>
+                                        <p style='display:none;'>${item.unique_sender}</p>
                                      </div>
                                      `
-            if (item.unique_id === getCookie('usrId')) {
-                let usr = document.querySelector('#CurrentUser' + item.unique_id)
-                usr.innerHTML = `${item.firstname + ' ' + item.Lastname} (Me)`
+            }else if (item.unique_sender === getCookie('usrId')) {
+                getConnectUsr.innerHTML += `  <div class="PersonsGrp">
+                                        <img width="15%" src="${item.photo}">
+                                        <h5 id='CurrentUser${item.unique_reciever}' onclick='chatWithUser(this.nextElementSibling.innerHTML,this.innerHTML)'>${item.unique_reciever_name}</h5>
+                                        <p style='display:none;'>${item.unique_reciever}</p>
+                                     </div>
+                                     `
             }
+        
+         /*   if (item.unique_sender === getCookie('usrId') || item.unique_reciever === getCookie('usrId') && item.unique_reciever_name === getCookie("usrName") || item.unique_sender_name === getCookie("usrName")) {
+                let usr = document.querySelector('#CurrentUser' + item.unique_reciever)
+                usr.innerHTML = `${item.unique_reciever_name} (Me)`
+            }*/
         }
     } else {
         console.log(serverData)
@@ -906,4 +964,4 @@ let getMedias = document.getElementById('getMedias')
 getMedias.innerHTML = getMd
 
 
-window.addEventListener('load', () => { searchUsers(), createMsgHtml(), getConnectedUsers() })
+window.addEventListener('load', () => { searchUsers(), createMsgHtml(), getConnectedUsers(), checkUserCons() })

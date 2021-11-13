@@ -141,8 +141,31 @@ async function answerUsrdata(request, response) {
                 response.json({ status: 'ko', result: 'Database error' })
                 console.log(err)
             } else {
-                response.json({ status: 'ok', result: rows })
+                response.json({ status: 'msgsent', result: rows })
             }
+        })
+    }
+
+    else if (data.type == "checkUserCon") {
+        let getData = `SELECT * FROM conusers where unique_sender = '${data.currentUserId}' and unique_reciever = '${data.chatUserId}' or unique_sender = '${data.chatUserId}' and unique_reciever = '${data.currentUserId}'`
+        Connection.query(getData, (err, rows) => {
+            if (err) {
+                console.log(err)
+            } else {
+                response.json({ status: 'userAddList', result: rows })
+            }
+        })
+    }
+
+    else if (data.type == "addUserList") {
+        let addUser = `INSERT INTO conusers(unique_sender,unique_sender_name,unique_reciever,unique_reciever_name,photo) values('${data.chatUserId}', '${data.chatUserName}','${data.currentUserId}','${data.currentUserName}','${data.photo}')`
+        Connection.query(addUser, (err, rows) => {
+            if (err) {
+                console.log(err)
+            } else {
+                response.json({ status: 'userAdedd', result: rows })
+            }
+            console.log(rows, 'user addes')
         })
     }
 
@@ -197,7 +220,7 @@ async function answerUsrdata(request, response) {
     }
 
     else if (data.type === 'getConnectedUsers') {
-        let getData = `SELECT * FROM users`
+        let getData = `SELECT * FROM conusers where unique_sender = '${data.currentUserId}' or unique_reciever = '${data.currentUserId}'`
 
         Connection.query(getData, (err, rows) => {
             if (err) {
