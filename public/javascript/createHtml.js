@@ -131,8 +131,9 @@ let chatHtml = `        <div class="usrChat">
             <div id="sendMsg" class="options__button">
                 <div class="dropdown">
                     <div class="dropdown-content">
-                        <button class="downlaod" id='' onclick='addEmojiToDiv()'>Emoji</button>
+                      <!--  <button class="downlaod" id='' onclick='addEmojiToDiv()'>Emoji</button> -->
                         <ion-icon name="images-outline" class='ioicon' onclick="ClickBtn()"></ion-icon>
+                        <button class="downlaod" style='opacity: 0; display:none;'>asd</button>
                     </div>
                     <div>
                     <ion-icon name="add-outline" class='showOps'></ion-icon>
