@@ -53,6 +53,10 @@ async function main() {
         socket.on('chat:type', (data) => {
             io.sockets.emit('chat:media', data)
         })
+
+        socket.on('chat:newUserMsg', (data) => {
+            io.sockets.emit('chat:newUserMsg', data)
+        })
     })
 }
 

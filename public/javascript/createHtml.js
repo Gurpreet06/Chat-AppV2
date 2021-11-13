@@ -321,12 +321,20 @@ async function checkUserCons() {
     }
 
     if (serverData.status == "userAdedd") {
+        socket.emit('chat:newUserMsg', {
+            currentUserId: getCookie('usrId'),
+            chatUserId: thisPosId,
+            messageTypo: 'newUserMsg'
+        })
+    }
+}
+
+
+socket.on('chat:newUserMsg', async (data) => {
+    if (data.chatUserId === getCookie('usrId') || data.currentUserId === getCookie('usrId') && data.currentUserId === thisPosId || data.chatUserId === thisPosId) {
         getConnectedUsers()
     }
-
-
-
-}
+})
 
 /*
     document.getElementById("chat_message").addEventListener("keyup", function (event) {
