@@ -138,7 +138,7 @@ let chatHtml = `        <div class="usrChat">
                     <ion-icon name="add-outline" class='showOps'></ion-icon>
                     </div>
                 </div>
-                <ion-icon name="arrow-up-outline" class='sendChatMsg' onclick="sendMessages(event)"><button id="SendMsgTxt" onclick="sendMessages(event)"></button></ion-icon>
+                <ion-icon name="arrow-up-outline" class='sendChatMsg' id="SendMsgTxt" onclick="sendMessages(event), updateScroll()"></ion-icon>
             </div>
         </div>
         
@@ -273,7 +273,7 @@ async function sendMessages(evt) {
             msgType: 'Message'
         })
         chatMessage.value = ''
-        setInterval(updateScroll,1000);
+        updateScroll()
         getUserChats()
     } else {
         console.log(serverData)
@@ -281,18 +281,18 @@ async function sendMessages(evt) {
 
 }
 
-window.addEventListener('DOMContentLoaded', (event) => {
-    document.getElementById("chat_message")
-        .addEventListener("keyup", function (event) {
-            event.preventDefault();
-            if (event.keyCode === 13) {
-                document.getElementById("SendMsgTxt").click();
-            }
-        });
-});
+/*
+    document.getElementById("chat_message").addEventListener("keyup", function (event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            document.getElementById("SendMsgTxt").click();
+        }
+    });
+
+*/
 
 // Get scroll down always at chat
-function updateScroll(){
+function updateScroll() {
     var element = document.getElementById("appendChat");
     element.scrollTop = element.scrollHeight;
 }
@@ -351,6 +351,7 @@ socket.on('chat:message', (data) => {
                 .replaceAll('{{igMsg}}', data.message)
                 .replaceAll('{{none}}', 'none')
                 .replaceAll('{{igId}}', data.msgId)
+                .replaceAll('{{igMedia}}', "/images/usrProfilePhoto/userDefault.png")
         } else {
             html = html + leftUsr
                 .replaceAll('{{imgPhoto}}', data.photo)
@@ -358,8 +359,10 @@ socket.on('chat:message', (data) => {
                 .replaceAll('{{igTime}}', data.time)
                 .replaceAll('{{igMsg}}', data.message)
                 .replaceAll('{{none}}', 'none')
+                .replaceAll('{{igMedia}}', "/images/usrProfilePhoto/userDefault.png")
         }
         appendChat.innerHTML += html
+        updateScroll()
         getUserChats()
     }
 
@@ -399,6 +402,7 @@ async function getUserChats() {
                             .replaceAll('{{none}}', 'none')
                             .replaceAll('{{igId}}', item.msg_id)
                             .replaceAll('{{downloadBn}}', '')
+                            .replaceAll('{{igMedia}}', "/images/usrProfilePhoto/userDefault.png")
                     } else {
                         html = html + leftUsr
                             .replaceAll('{{imgPhoto}}', item.Photo)
@@ -406,6 +410,7 @@ async function getUserChats() {
                             .replaceAll('{{igTime}}', item.Time)
                             .replaceAll('{{igMsg}}', item.msg)
                             .replaceAll('{{none}}', 'none')
+                            .replaceAll('{{igMedia}}', "/images/usrProfilePhoto/userDefault.png")
                     }
                 } else if (item.msg_type === 'Media') {
                     if (item.incoming_msg_id == getCookie('usrId')) {
@@ -715,6 +720,7 @@ async function showType(typeValue) {
         chatUserId: thisPosId,
         chatMsg: typeValue
     })
+
 }
 
 socket.on('chat:media', async (data) => {
