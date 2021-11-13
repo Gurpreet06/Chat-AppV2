@@ -10,6 +10,21 @@
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `conusers`
+--
+
+CREATE TABLE `conusers` (
+  `id` int(11) NOT NULL,
+  `unique_sender` varchar(200) NOT NULL,
+  `unique_sender_name` varchar(200) NOT NULL,
+  `unique_reciever` varchar(200) NOT NULL,
+  `unique_reciever_name` varchar(200) NOT NULL,
+  `photo` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `messages`
 --
 
@@ -48,6 +63,12 @@ CREATE TABLE `users` (
 --
 
 --
+-- Indices de la tabla `conusers`
+--
+ALTER TABLE `conusers`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `messages`
 --
 ALTER TABLE `messages`
@@ -62,6 +83,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `conusers`
+--
+ALTER TABLE `conusers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT de la tabla `messages`
