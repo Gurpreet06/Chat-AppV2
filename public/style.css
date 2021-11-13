@@ -504,6 +504,8 @@ ion-icon {
 .showMsg {
   height: 395px;
   overflow: auto;
+  position: relative;
+  bottom: 0;
 }
 
 #rightCUrrentUsr {

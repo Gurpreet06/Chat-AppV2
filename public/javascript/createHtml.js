@@ -138,7 +138,7 @@ let chatHtml = `        <div class="usrChat">
                     <ion-icon name="add-outline" class='showOps'></ion-icon>
                     </div>
                 </div>
-                <ion-icon name="arrow-up-outline" class='sendChatMsg' onclick="sendMessages(event)"></ion-icon>
+                <ion-icon name="arrow-up-outline" class='sendChatMsg' onclick="sendMessages(event)"><button id="SendMsgTxt" onclick="sendMessages(event)"></button></ion-icon>
             </div>
         </div>
         
@@ -273,11 +273,28 @@ async function sendMessages(evt) {
             msgType: 'Message'
         })
         chatMessage.value = ''
+        setInterval(updateScroll,1000);
         getUserChats()
     } else {
         console.log(serverData)
     }
 
+}
+
+window.addEventListener('DOMContentLoaded', (event) => {
+    document.getElementById("chat_message")
+        .addEventListener("keyup", function (event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                document.getElementById("SendMsgTxt").click();
+            }
+        });
+});
+
+// Get scroll down always at chat
+function updateScroll(){
+    var element = document.getElementById("appendChat");
+    element.scrollTop = element.scrollHeight;
 }
 
 let leftChatMsg = `
